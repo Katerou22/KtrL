@@ -668,7 +668,8 @@
 	}
 
 	function getCity($lat, $long) {
-		$url = "https://nominatim.openstreetmap.org/reverse/?format=json&lat=$lat&lon=$long";
+		$key = 'AIzaSyCB46xbCQC7Qp3bfG87hZS7iRr7WxpKavg';
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&key=$key&sensor=true";
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_POST, FALSE);
@@ -677,7 +678,6 @@
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 
 		$result = curl_exec($ch);
-		dd($result);
 		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 		if ($http_code !== 200) {
@@ -687,7 +687,16 @@
 
 		$result = json_decode(json_encode($result, TRUE));
 
-		return json_decode($result);
+		foreach (json_decode($result)->results as $result) {
+			foreach ($result->address_components as $address_component) {
+				if (in_array('locality', $address_component->types, TRUE)) {
+					return strtolower($address_component->short_name);
+				}
+			}
+
+		}
+
+		return NULL;
 	}
 
 	function normalise($text) {
