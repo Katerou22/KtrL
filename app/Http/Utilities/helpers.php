@@ -832,3 +832,43 @@
 
 		return json_decode($result);
 	}
+
+	function geoIP($ip) {
+		$url = "http://getcitydetails.geobytes.com/GetCityDetails?fqcn=$ip";
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, FALSE);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
+
+
+		$result = curl_exec($ch);
+		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+		if ($http_code !== 200) {
+			return FALSE;
+		}
+
+		return json_decode($result);
+
+	}
+
+	function getPlacePhoto($photo_id, $width, $name) {
+		$key = 'AIzaSyCB46xbCQC7Qp3bfG87hZS7iRr7WxpKavg';
+
+		$url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=$width&photoreference=$photo_id&key=$key";
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, FALSE);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
+
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+
+		$result = curl_exec($ch);
+
+		\Intervention\Image\Facades\Image::make($result)->save('img/' . $name . '.jpg');
+	}
+
+

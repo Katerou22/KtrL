@@ -4,14 +4,11 @@
 
 	use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-	class Place extends Eloquent {
+	class Capital extends Eloquent {
 		protected $fillable = [
-			'id',
-			'place_id',
-			'reference',
-			'name',
+			'title',
+			'capital',
 			'lat',
 			'long',
-			'photos',
 		];
 	}

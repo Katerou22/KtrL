@@ -163,6 +163,7 @@
 			Illuminate\View\ViewServiceProvider::class,
 			Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 			Jenssegers\Mongodb\MongodbServiceProvider::class,
+			Intervention\Image\ImageServiceProvider::class,
 
 
 			/*
@@ -228,6 +229,8 @@
 			'URL'          => Illuminate\Support\Facades\URL::class,
 			'Validator'    => Illuminate\Support\Facades\Validator::class,
 			'View'         => Illuminate\Support\Facades\View::class,
+			'Image'        => Intervention\Image\Facades\Image::class,
+
 
 		],
 
