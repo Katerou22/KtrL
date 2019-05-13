@@ -24,10 +24,8 @@
 	Route::middleware('auth:api')->group(function () {
 
 		Route::prefix('countries')->group(function () {
-			Route::get('/', 'CountryController@countries');
 
 			Route::prefix('{country}')->group(function () {
-				Route::get('/', 'CountryController@getCity');
 
 				Route::prefix('add')->group(function () {
 
