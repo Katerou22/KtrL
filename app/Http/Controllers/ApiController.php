@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers;
 
 	use App\City;
+	use App\Country;
 	use App\Device;
 	use Illuminate\Http\Request;
 
@@ -41,6 +42,7 @@
 			} else {
 				$ip_info = geoIP($request->getClientIp());
 				$city_name = $ip_info->geobytescity();
+
 				$lat = $ip_info->geobyteslatitude();
 				$long = $ip_info->geobyteslongitude();
 			}
@@ -50,7 +52,6 @@
 					                     'title' => $city_name,
 				                     ]);
 			}
-
 			$nearbyPlaces = placeSearch($lat, $long);
 
 			$results = collect($nearbyPlaces->results);
@@ -65,15 +66,18 @@
 						$photos[] = 'img/' . $result->id . $i . '.jpg';
 					}
 				}
-				$city->places()->create([
-					                        'id'        => $result->id,
-					                        'place_id'  => $result->place_id,
-					                        'reference' => $result->reference,
-					                        'name'      => $result->name,
-					                        'lat'       => $result->geometry->location->lat,
-					                        'long'      => $result->geometry->location->lng,
-					                        'photos'    => $photos,
-				                        ]);
+				if ($city->places->where('id', $result->id)->first() === NULL) {
+					$city->places()->create([
+						                        'id'        => $result->id,
+						                        'place_id'  => $result->place_id,
+						                        'reference' => $result->reference,
+						                        'name'      => $result->name,
+						                        'lat'       => $result->geometry->location->lat,
+						                        'long'      => $result->geometry->location->lng,
+						                        'photos'    => $photos,
+					                        ]);
+
+				}
 
 
 			}
@@ -81,4 +85,5 @@
 			dd($device);
 
 		}
+
 	}

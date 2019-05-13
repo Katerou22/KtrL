@@ -6,10 +6,39 @@
 
 	class Country extends Eloquent {
 		protected $fillable = [
-			'title',
+			'name', 'code', 'timezone', 'lang', 'population', 'currency', 'phone', 'capital',
 		];
 
-		public function cities() {
-			return $this->hasMany(City::class);
+		public function cities(): \Illuminate\Database\Eloquent\Relations\HasMany {
+			return $this->hasMany(City::class, 'country', 'code');
 		}
+
+		public function cultural_notes(): \Illuminate\Database\Eloquent\Relations\HasMany {
+			return $this->hasMany(CulturalNote::class, 'country_code', 'code');
+		}
+
+		public function not_to_misses(): \Illuminate\Database\Eloquent\Relations\HasMany {
+			return $this->hasMany(NotToMiss::class, 'country_code', 'code');
+		}
+
+		public static function getName($name) {
+			return self::where('name', $name)->first();
+		}
+
+		public static function getCode($code) {
+			return self::where('code', $code)->first();
+		}
+
+		public function getRouteKeyName(): string {
+			return 'code';
+		}
+
+		public function photos(): \Jenssegers\Mongodb\Relations\EmbedsMany {
+			return $this->embedsMany(Photo::class, 'photos');
+		}
+
+		public function reviews(): \Jenssegers\Mongodb\Relations\EmbedsMany {
+			return $this->embedsMany(Review::class, 'reviews');
+		}
+
 	}

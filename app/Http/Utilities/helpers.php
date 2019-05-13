@@ -4,6 +4,7 @@
 	use App\app\Http\Utilites\Enum;
 	use App\Category;
 	use App\Exceptions\SearchableException;
+	use App\Exceptions\TraviloException;
 	use App\Feature;
 	use App\Jobs\AddingBalanceToRedis;
 	use App\Jobs\SendAndroidNotification;
@@ -207,7 +208,7 @@
 
 	function error($message, $max = NULL) {
 
-		throw new SearchableException($message, $max, NULL);
+		throw new TraviloException($message, $max, NULL);
 	}
 
 	function smsVerify($user, $token) {
@@ -868,7 +869,54 @@
 
 		$result = curl_exec($ch);
 
-		\Intervention\Image\Facades\Image::make($result)->save('img/' . $name . '.jpg');
+		//		\Intervention\Image\Facades\Image::make($result)->save('img/' . $name . '.jpg');
+	}
+
+	function upImage($file, $path, $thumbnail = FALSE, $name = NULL) {
+		$photo_from_request = $file;
+		$photo = \Intervention\Image\Facades\Image::make($photo_from_request);
+		$thumb_path = NULL;
+
+		if ($path[ 0 ] === '/') {
+			if ($thumbnail) {
+				$thumb_path = public_path() . '/thumbnails' . $path;
+
+			}
+			$path = public_path() . '/images' . $path;
+
+
+		} else {
+			if ($thumbnail) {
+				$thumb_path = public_path() . '/thumbnails/' . $path;
+
+			}
+			$path = public_path() . '/images/' . $path;
+
+		}
+
+		if ( ! File::isDirectory($path)) {
+			File::makeDirectory($path, 493, TRUE);
+
+		}
+
+		$name = $name ?? time() . '.' . $photo_from_request->getClientOriginalExtension();
+
+
+		$original = $path . $name;
+		$photo->save($original);
+		if ($thumbnail) {
+			if ( ! File::isDirectory($thumb_path)) {
+				File::makeDirectory($thumb_path, 493, TRUE);
+
+			}
+			$thumb = $thumb_path . $name;
+			$photo->resize(150, 150);
+			$photo->save($thumb);
+		}
+
+		return $name;
+
+
 	}
 
 

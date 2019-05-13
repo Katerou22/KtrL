@@ -6,14 +6,18 @@
 
 	class City extends Eloquent {
 		protected $fillable = [
-			'title',
+			'name', 'country', 'lat', 'lng',
 		];
 
 		public function country() {
-			return $this->belongsTo(Country::class);
+			return $this->belongsTo(Country::class, 'country', 'code');
 		}
 
 		public function places() {
 			return $this->hasMany(Place::class);
+		}
+
+		public static function getName($name) {
+			return self::where('name', $name)->first();
 		}
 	}

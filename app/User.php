@@ -11,29 +11,34 @@
 		use Notifiable;
 
 		protected $fillable = [
-			'name', 'email', 'password',
+			'name', 'email', 'password', 'api_token', 'avatar', 'country_id', 'city_id', 'level', 'exp', 'following_count',
 		];
-
-		/**
-		 * The attributes that should be hidden for arrays.
-		 *
-		 * @var array
-		 */
 		protected $hidden = [
 			'password', 'remember_token',
 		];
 
-		/**
-		 * The attributes that should be cast to native types.
-		 *
-		 * @var array
-		 */
 		protected $casts = [
 			'email_verified_at' => 'datetime',
 		];
 
-		public function devices() {
+		public function devices(): \Illuminate\Database\Eloquent\Relations\BelongsToMany {
 			return $this->belongsToMany(Device::class);
+		}
+
+		public function city(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
+			return $this->belongsTo(City::class);
+		}
+
+		public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
+			return $this->belongsTo(Country::class);
+		}
+
+		public function photos(): \Jenssegers\Mongodb\Relations\EmbedsMany {
+			return $this->embedsMany(Photo::class, 'photos');
+		}
+
+		public function cultural_notes(): \Illuminate\Database\Eloquent\Relations\HasMany {
+			return $this->hasMany(CulturalNote::class, 'user');
 		}
 
 	}
