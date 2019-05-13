@@ -164,6 +164,7 @@
 			Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 			Jenssegers\Mongodb\MongodbServiceProvider::class,
 			Intervention\Image\ImageServiceProvider::class,
+			Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
 
 			/*
