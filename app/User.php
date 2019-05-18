@@ -49,6 +49,7 @@
 		}
 
 		public function hasBucket($country): ?bool {
+			
 			if ($this->buckets->where('country_code', strtoupper($country->code))->eixsts()) {
 				return TRUE;
 			} else {

@@ -16,6 +16,8 @@
 		public function countries() {
 
 
+
+
 			return api(CountryResource::collection(Country::all()));
 		}
 
@@ -96,4 +98,5 @@
 			return api($not_to_miss);
 
 		}
+
 	}

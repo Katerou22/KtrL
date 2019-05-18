@@ -5,7 +5,6 @@
 	use Illuminate\Http\Resources\Json\JsonResource;
 
 	class CountryResource extends JsonResource {
-		private $code;
 
 		/**
 		 * Transform the resource into an array.

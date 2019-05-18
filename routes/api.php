@@ -22,6 +22,8 @@
 
 
 	Route::middleware('auth:api')->group(function () {
+		Route::post('follow', 'UserController@follow');
+		Route::get('bucket', 'UserController@addToBucket');
 
 		Route::prefix('countries')->group(function () {
 

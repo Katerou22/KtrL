@@ -6,10 +6,12 @@
 
 	class Follow extends Eloquent {
 		protected $fillable = [
-			'country_code',
+			'type', 'id',
 		];
 
-		public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
-			return $this->belongsTo(Country::class, 'country_code', 'code');
+		public function parent() {
+			$model = ucfirst($this->type);
+
+			return $model::where($model::getRouteKeyName(), $this->id)->first();
 		}
 	}
