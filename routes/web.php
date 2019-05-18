@@ -5,29 +5,34 @@
 		return view('welcome');
 	});
 	Route::any('/tester', function (\Illuminate\Http\Request $request) {
-
+		$errs = [];
 		$countries = \App\Country::all();
 		foreach ($countries as $country) {
 			if ($country->flag === NULL) {
-				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_HEADER, 0);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($ch, CURLOPT_URL, 'https://www.countryflags.io/' . strtolower($country->code) . '/shiny/64.png');
+				try {
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_HEADER, 0);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_URL, 'https://www.countryflags.io/' . strtolower($country->code) . '/shiny/64.png');
 
-				$data = curl_exec($ch);
-				curl_close($ch);
-				$path = public_path() . '/images/' . $country->code . '/';
+					$data = curl_exec($ch);
+					curl_close($ch);
+					$path = public_path() . '/images/' . $country->code . '/';
 
-				if ( ! File::isDirectory($path)) {
-					File::makeDirectory($path, 493, TRUE);
+					if ( ! File::isDirectory($path)) {
+						File::makeDirectory($path, 493, TRUE);
+
+					}
+
+					\Intervention\Image\Facades\Image::make($data)->save('images/' . $country->code . '/' . $country->code . '.jpg');
+
+					$country->update([
+						                 'flag' => '/images/' . $country->code . '/' . $country->code . '.jpg',
+					                 ]);
+				} catch (Exception $e) {
+					$errs[] = $country->code;
 
 				}
-
-				\Intervention\Image\Facades\Image::make($data)->save('images/' . $country->code . '/' . $country->code . '.jpg');
-
-				$country->update([
-					                 'flag' => '/images/' . $country->code . '/' . $country->code . '.jpg',
-				                 ]);
 			}
 
 
