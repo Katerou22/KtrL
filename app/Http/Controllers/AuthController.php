@@ -83,7 +83,7 @@
 			if ($request->header('Device-Id') === NULL) {
 				return error('Device-Id Required');
 			}
-			$country = Country::find($request->country);
+			$country = Country::getCode($request->country);
 			if ($country === NULL) {
 				return error('Country not found');
 			}

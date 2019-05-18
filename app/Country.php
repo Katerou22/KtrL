@@ -26,7 +26,7 @@
 		}
 
 		public static function getCode($code) {
-			return self::where('code', $code)->first();
+			return self::where('code', strtoupper($code))->first();
 		}
 
 		public function getRouteKeyName(): string {
