@@ -33,6 +33,10 @@
 			return 'code';
 		}
 
+		public function resolveRouteBinding($value) {
+			return $this->where($this->getRouteKeyName(), strtoupper($value))->first();
+		}
+
 		public function photos(): \Jenssegers\Mongodb\Relations\EmbedsMany {
 			return $this->embedsMany(Photo::class, 'photos');
 		}
