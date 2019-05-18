@@ -7,6 +7,9 @@
 	use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 	use Jenssegers\Mongodb\Auth\User as Authenticatable;
 
+	/**
+	 * @property mixed bookmarks
+	 */
 	class User extends Authenticatable {
 		use Notifiable;
 
@@ -35,6 +38,34 @@
 
 		public function photos(): \Jenssegers\Mongodb\Relations\EmbedsMany {
 			return $this->embedsMany(Photo::class, 'photos');
+		}
+
+		public function buckets(): \Jenssegers\Mongodb\Relations\EmbedsMany {
+			return $this->embedsMany(Bucket::class, 'buckets');
+		}
+
+		public function followings(): \Jenssegers\Mongodb\Relations\EmbedsMany {
+			return $this->embedsMany(Follow::class, 'buckets');
+		}
+
+		public function hasBucket($country): ?bool {
+			if ($this->buckets->where('country_code', strtoupper($country->code))->eixsts()) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+
+
+		}
+
+		public function hasFollowed($country): ?bool {
+			if ($this->followings->where('country_code', strtoupper($country->code))->eixsts()) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+
+
 		}
 
 		public function cultural_notes(): \Illuminate\Database\Eloquent\Relations\HasMany {

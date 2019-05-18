@@ -6,7 +6,7 @@
 
 	class Country extends Eloquent {
 		protected $fillable = [
-			'name', 'code', 'timezone', 'lang', 'population', 'currency', 'phone', 'capital', 'emoji', 'flag', 'map',
+			'name', 'code', 'timezone', 'lang', 'population', 'currency', 'phone', 'capital', 'emoji', 'flag', 'map', 'reviews_count',
 		];
 
 		public function cities(): \Illuminate\Database\Eloquent\Relations\HasMany {

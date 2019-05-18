@@ -4,6 +4,9 @@
 
 	use App\City;
 	use App\Country;
+	use App\Http\Resources\CityResource;
+	use App\Http\Resources\CountryCollection;
+	use App\Http\Resources\CountryResource;
 	use App\Photo;
 	use App\Travel;
 	use Illuminate\Http\Request;
@@ -11,12 +14,14 @@
 
 	class CountryController extends Controller {
 		public function countries() {
-			return api(Country::all());
+
+
+			return api(CountryResource::collection(Country::all()));
 		}
 
 		public function getCity(Country $country) {
 
-			return api($country->cities);
+			return api(CityResource::collection($country->cities));
 
 
 		}
