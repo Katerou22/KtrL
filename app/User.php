@@ -11,7 +11,7 @@
 		use Notifiable;
 
 		protected $fillable = [
-			'name', 'email', 'password', 'api_token', 'avatar', 'country_id', 'city_id', 'level', 'exp', 'following_count',
+			'name', 'email', 'password', 'api_token', 'avatar', 'country_id', 'city_id', 'level', 'exp', 'following_count', 'follower_count',
 		];
 		protected $hidden = [
 			'password', 'remember_token',

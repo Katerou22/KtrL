@@ -61,6 +61,7 @@
 				'level'           => $user->level,
 				'exp'             => $user->exp,
 				'following_count' => $user->following_count,
+				'follower_count'  => $user->follower_count,
 
 			];
 			$data = [
@@ -109,6 +110,7 @@
 					                     'level'           => 1,
 					                     'exp'             => 0,
 					                     'following_count' => 0,
+					                     'follower_count'  => 0,
 
 				                     ]);
 
