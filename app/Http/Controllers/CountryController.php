@@ -17,7 +17,13 @@
 		public function countries() {
 
 
-			return api(Country::select('flag', 'code', 'name')->get());
+			return api(Country::all()->map(function ($country) {
+				return [
+					'code' => $country->code,
+					'name' => $country->name,
+					'flag' => url($country->flag),
+				];
+			}));
 		}
 
 		public function getCountry(Country $country) {
