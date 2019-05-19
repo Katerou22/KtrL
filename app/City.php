@@ -8,14 +8,14 @@
 	class City extends Eloquent {
 		use Followable;
 		protected $fillable = [
-			'name', 'country', 'lat', 'lng','followers_count','likes_count',
+			'name', 'country_code', 'lat', 'lng', 'followers_count',
 		];
 
-		public function country() {
-			return $this->belongsTo(Country::class, 'country', 'code');
+		public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
+			return $this->belongsTo(Country::class, 'country_code', 'code');
 		}
 
-		public function places() {
+		public function places(): \Illuminate\Database\Eloquent\Relations\HasMany {
 			return $this->hasMany(Place::class);
 		}
 

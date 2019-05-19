@@ -4,6 +4,13 @@
 
 	use Illuminate\Http\Resources\Json\JsonResource;
 
+	/**
+	 * @property mixed review_count
+	 * @property mixed map
+	 * @property mixed flag
+	 * @property mixed code
+	 * @property mixed name
+	 */
 	class CountryResource extends JsonResource {
 
 		/**
@@ -21,13 +28,14 @@
 				'type'  => 'country',
 				'model' => [
 
-					'code'     => $this->code,
-					'name'     => $this->name,
-					'flag'     => url($this->flag),
-					'map'      => $this->map,
-					'followed' => optional($user)->hasFollowed($this) ?? FALSE,
-					'bucketed' => optional($user)->hasBucket($this) ?? FALSE,
-					'extra'    => [
+					'code'         => $this->code,
+					'name'         => $this->name,
+					'flag'         => url($this->flag),
+					'map'          => $this->map,
+					'review_count' => $this->review_count,
+					'followed'     => optional($user)->hasFollowed($this) ?? FALSE,
+					'bucketed'     => optional($user)->hasBucket($this) ?? FALSE,
+					'extra'        => [
 						[
 							'key'   => 'Timezone',
 							'value' => $this->timezone,

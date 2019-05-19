@@ -9,7 +9,8 @@
 	class Country extends Eloquent {
 		use Followable, Photoable;
 		protected $fillable = [
-			'name', 'code', 'timezone', 'lang', 'population', 'currency', 'phone', 'capital', 'emoji', 'flag', 'map', 'reviews_count', 'followers_count', 'likes_count',
+			'name', 'code', 'timezone', 'languages', 'population', 'currency', 'phone', 'capital', 'emoji', 'flag', 'map', 'reviews_count',
+			'followers_count', 'likes_count',
 		];
 
 		public function cities(): \Illuminate\Database\Eloquent\Relations\HasMany {
