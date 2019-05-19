@@ -2,11 +2,13 @@
 
 	namespace App;
 
+	use App\Http\Utilities\Likable;
 	use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 	class Photo extends Eloquent {
+		use Likable;
 		protected $fillable = [
-			'user_id', 'path', 'likes', 'thumbnail', 'city_id', 'travel_id', 'country_code',
+			'user_id', 'path', 'thumbnail', 'city_id', 'travel_id', 'country_code',
 		];
 
 		public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo {

@@ -2,9 +2,12 @@
 
 	namespace App;
 
+	use App\Http\Utilities\Followable;
+	use App\Http\Utilities\Photoable;
 	use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 	class Country extends Eloquent {
+		use Followable, Photoable;
 		protected $fillable = [
 			'name', 'code', 'timezone', 'lang', 'population', 'currency', 'phone', 'capital', 'emoji', 'flag', 'map', 'reviews_count',
 		];
@@ -37,8 +40,8 @@
 			return $this->where($this->getRouteKeyName(), strtoupper($value))->first();
 		}
 
-		public function photos(): \Jenssegers\Mongodb\Relations\EmbedsMany {
-			return $this->embedsMany(Photo::class, 'photos');
+		public function getFlagAttribute($value) {
+			return url($value);
 		}
 
 		public function reviews(): \Jenssegers\Mongodb\Relations\EmbedsMany {

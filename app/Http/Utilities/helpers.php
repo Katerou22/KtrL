@@ -206,9 +206,9 @@
 		return response($response, $http_code);
 	}
 
-	function error($message, $max = NULL) {
+	function error($message, $code = NULL) {
 
-		throw new TraviloException($message, $max, NULL);
+		throw new TraviloException($message, $code, NULL);
 	}
 
 	function smsVerify($user, $token) {

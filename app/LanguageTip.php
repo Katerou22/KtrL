@@ -3,12 +3,12 @@
 	namespace App;
 
 	use App\Http\Utilities\Likable;
-	use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+	use Illuminate\Database\Eloquent\Model;
 
-	class CulturalNote extends Eloquent {
+	class LanguageTip extends Model {
 		use Likable;
 		protected $fillable = [
-			'title', 'description', 'country_code', 'user_id',
+			'original', 'translation', 'country_code', 'user_id', 'pronunciation',
 		];
 
 		public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo {

@@ -2,9 +2,11 @@
 
 	namespace App;
 
+	use App\Http\Utilities\Followable;
 	use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 	class City extends Eloquent {
+		use Followable;
 		protected $fillable = [
 			'name', 'country', 'lat', 'lng',
 		];

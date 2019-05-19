@@ -2,13 +2,13 @@
 
 	namespace App;
 
-	use Carbon\Carbon;
 	use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-	class Follow extends Eloquent {
+	class Like extends Eloquent {
 		protected $fillable = [
-			'type', 'id', 'user_id',
+			'user_id', 'type', 'id',
 		];
+
 
 		public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
 			return $this->belongsTo(User::class);
@@ -19,5 +19,4 @@
 
 			return $model::where((new $model)->getRouteKeyName(), $this->id)->first();
 		}
-
 	}

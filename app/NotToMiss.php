@@ -2,11 +2,13 @@
 
 	namespace App;
 
+	use App\Http\Utilities\Likable;
 	use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 	class NotToMiss extends Eloquent {
+		use Likable;
 		protected $fillable = [
-			'title', 'photo', 'type', 'country_code', 'likes', 'thumbnail', 'user_id', 'travel_id',
+			'title', 'photo', 'type', 'country_code', 'thumbnail', 'user_id', 'travel_id',
 		];
 
 		public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo {

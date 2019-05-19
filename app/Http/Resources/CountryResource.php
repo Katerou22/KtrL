@@ -14,18 +14,16 @@
 		 * @return array
 		 */
 		public function toArray($request) {
-
+			$user = auth('api')->user();
 
 			return [
-				'code'          => $this->code,
-				'name'          => $this->name,
-				'flag'          => url($this->flag),
-				'image'         => $this->image,
-				'reviews_count' => $this->reviews_count,
-				'map'           => $this->map,
-				'followed'      => optional(\Auth::user())->hasFollowed($this) !== NULL,
-				'bucketed'      => optional(\Auth::user())->hasBucket($this) !== NULL,
-				'extra'         => [
+				'code'     => $this->code,
+				'name'     => $this->name,
+				'flag'     => url($this->flag),
+				'map'      => $this->map,
+				'followed' => optional($user)->hasFollowed($this),
+				'bucketed' => optional($user)->hasBucket($this),
+				'extra'    => [
 					[
 						'key'   => 'Timezone',
 						'value' => $this->timezone,
@@ -48,6 +46,8 @@
 					],
 
 				],
+
+
 			];
 		}
 	}
