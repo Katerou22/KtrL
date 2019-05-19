@@ -26,7 +26,7 @@
 		Route::get('follow/{type}/{id}', 'UserController@toggleFollow');
 		Route::get('like/{type}/{id}', 'UserController@toggleLike');
 		Route::get('bucket', 'UserController@addToBucket');
-
+		Route::post('/auth/update', 'AuthController@update');
 		Route::prefix('countries')->group(function () {
 
 			Route::prefix('{country}')->group(function () {
@@ -49,5 +49,5 @@
 
 
 	Route::post('/auth/register', 'AuthController@register');
-	Route::post('/auth/login', 'AuthController@login');
+	Route::post('/auth/login', 'AuthController@login');;
 

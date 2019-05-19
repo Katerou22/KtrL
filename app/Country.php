@@ -30,7 +30,14 @@
 		}
 
 		public static function getCode($code) {
-			return self::where('code', strtoupper($code))->first();
+
+			$model = self::where('code', strtoupper($code))->first();
+			if ($model === NULL) {
+				return error('Country Not Found', 404);
+			}
+
+
+			return $model;
 		}
 
 		public function getRouteKeyName(): string {

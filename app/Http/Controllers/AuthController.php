@@ -2,8 +2,10 @@
 
 	namespace App\Http\Controllers;
 
+	use App\City;
 	use App\Country;
 	use App\Device;
+	use App\Http\Resources\UserResource;
 	use App\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Auth;
@@ -79,7 +81,7 @@
 				                   'name'     => 'required',
 				                   'city'     => 'required',
 				                   'country'  => 'required',
-				                   'avatar'   => 'required|mimes:jpeg,png,jpg',
+				                   'avatar'   => 'mimes:jpeg,png,jpg',
 			                   ]);
 			if ($request->header('Device-Id') === NULL) {
 				return error('Device-Id Required');
@@ -103,9 +105,6 @@
 			if ($user === NULL) {
 
 
-				$name = upImage($request->file('avatar'), '/avatars/', TRUE);
-
-
 				$user = User::create([
 					                     'email'           => $email,
 					                     'name'            => $request->name,
@@ -117,7 +116,6 @@
 					                     'exp'             => 0,
 					                     'following_count' => 0,
 					                     'follower_count'  => 0,
-					                     'avatar'          => '/images/' . '/avatars/' . $name,
 
 
 				                     ]);
@@ -142,7 +140,11 @@
 			} else {
 				return error('This email has been registered before');
 			}
-
+			if ($request->avatar) {
+				$name = upImage($request->file('avatar'), '/avatars/', TRUE);
+				$user->avatar = '/images/avatars/' . $name;
+				$user->save();
+			}
 			$user_info = [
 				'name'            => $user->name,
 				'city'            => $city->name,
@@ -160,5 +162,88 @@
 			];
 
 			return api($data);
+		}
+
+		public function update(Request $request) {
+			$request->validate([
+				                   'email'    => 'unique:users|max:255|string',
+				                   'password' => 'min:8',
+				                   'avatar'   => 'mimes:jpeg,png,jpg',
+			                   ]);
+
+			if ($request->email) {
+
+				if (strstr($request->email, '@') === '@gmail.com') {
+					$email = str_replace('.', '', strstr($request->email, '@', TRUE)) . '@gmail.com';
+				} else {
+					$email = $request->email;
+				}
+				$user = User::where('email', $email)->first();
+				if ($user === NULL) {
+					$this->user->email = $email;
+				} else {
+					return error('This email has been registered before');
+				}
+
+			}
+			if ($request->country) {
+				if ( ! $request->city) {
+					return error('While changing the country, choosing city is required!');
+				} else {
+					$country = Country::getCode($request->country);
+					$city = City::findOrFail($request->city);
+
+
+					if ($city->country_code !== $country->code) {
+						return error("$city->name is not for $country->name");
+					}
+
+					$this->user->city_id = $request->city;
+					$this->user->country_code = $request->country;
+
+
+				}
+
+
+			}
+			if ($request->city) {
+				$city = City::findOrFail($request->city);
+
+
+				if ($city->country_code !== $this->user->country_code) {
+					return error("$city->name is not for " . $this->user->country->name);
+				}
+				$this->user->city_id = $request->city;
+
+			}
+
+			if ($request->name) {
+				$this->user->name = $request->name;
+			}
+			if ($request->password) {
+				if ( ! $request->old_password) {
+					return error('Old Password Required');
+				}
+
+				if (Hash::check($request->old_password, $this->user->getAuthPassword())) {
+					$this->user->password = Hash::make($request->password);
+
+				} else {
+					return error('Password is wrong!');
+				}
+
+			}
+			if ($request->avatar) {
+				//				$name = upImage($request->file('avatar'), '/avatars/', TRUE);
+				$avatar = $this->user->avatar;
+				dd($avatar);
+				//				$avatar = '/images/avatars/' . $name;
+
+			}
+			$this->user->save();
+
+			return api(new UserResource($this->user));
+
+
 		}
 	}
