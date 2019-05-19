@@ -10,6 +10,7 @@
 	 * @property mixed flag
 	 * @property mixed code
 	 * @property mixed name
+	 * @property mixed languages
 	 */
 	class CountryResource extends JsonResource {
 
@@ -32,6 +33,7 @@
 					'name'         => $this->name,
 					'flag'         => url($this->flag),
 					'map'          => $this->map,
+					'languages'    => $this->languages,
 					'review_count' => $this->review_count,
 					'followed'     => optional($user)->hasFollowed($this) ?? FALSE,
 					'bucketed'     => optional($user)->hasBucket($this) ?? FALSE,

@@ -56,12 +56,22 @@
 				                   'original'      => 'required|string',
 				                   'translation'   => 'required|string',
 				                   'pronunciation' => 'required|string',
+				                   'language'      => 'required|string',
 			                   ]);
+			$country_lang = collect($country->languages)->map(function ($l) {
+
+				return $l[ 'code' ];
+			});
+			if ( ! in_array($request->langauge, $country_lang->toArray(), TRUE)) {
+				return error('Wrong Language Selected');
+			}
+
 			$language_tip = $country->language_tips()->create([
 				                                                  'original'      => $request->original,
 				                                                  'translation'   => $request->translation,
 				                                                  'pronunciation' => $request->pronunciation,
 				                                                  'user_id'       => $this->user->id,
+				                                                  'language'      => $request->language,
 				                                                  'likes_count'   => 0,
 			                                                  ]);
 
