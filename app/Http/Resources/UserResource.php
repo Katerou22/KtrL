@@ -16,9 +16,10 @@
 			return [
 				'id'      => $this->id,
 				'name'    => $this->name,
+				'email'   => $this->email,
 				'country' => $this->country->name,
 				'city'    => $this->city->name,
-				'avatar'  => $this->avatar,
+				'avatar'  => url($this->avatar),
 			];
 		}
 	}

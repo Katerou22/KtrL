@@ -54,11 +54,16 @@
 					],
 				],
 			];
-			$data[] = [
-				'title' => 'Not To Miss',
-				'type'  => 'notToMiss',
-				'model' => NotToMissesResource::collection($this->not_to_misses->groupBy('type')),
-			];
+
+			$notToMissResource = NotToMissesResource::collection($this->not_to_misses->groupBy('type'));
+			if ($notToMissResource->count() > 0) {
+				$data[] = [
+					'title' => 'Not To Miss',
+					'type'  => 'notToMiss',
+					'model' => $notToMissResource,
+				];
+			}
+
 
 			return $data;
 

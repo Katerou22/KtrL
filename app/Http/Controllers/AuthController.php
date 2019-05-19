@@ -236,8 +236,17 @@
 			if ($request->avatar) {
 				//				$name = upImage($request->file('avatar'), '/avatars/', TRUE);
 				$avatar = $this->user->avatar;
-				dd($avatar);
-				//				$avatar = '/images/avatars/' . $name;
+				if ($avatar !== NULL) {
+					if (\File::exists(public_path() . $avatar)) {
+						\File::delete(public_path() . $avatar);
+					}
+
+
+				}
+				$name = upImage($request->file('avatar'), '/avatars/', TRUE);
+				$avatar = '/images/avatars/' . $name;
+				$this->user->avatar = $avatar;
+
 
 			}
 			$this->user->save();
