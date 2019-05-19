@@ -8,7 +8,7 @@
 	class CulturalNote extends Eloquent {
 		use Likable;
 		protected $fillable = [
-			'title', 'description', 'country_code', 'user_id',
+			'title', 'description', 'country_code', 'user_id','followers_count','likes_count'
 		];
 
 		public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo {

@@ -8,7 +8,7 @@
 	class NotToMiss extends Eloquent {
 		use Likable;
 		protected $fillable = [
-			'title', 'photo', 'type', 'country_code', 'thumbnail', 'user_id', 'travel_id',
+			'title', 'photo', 'type', 'country_code', 'thumbnail', 'user_id', 'travel_id', 'followers_count', 'likes_count',
 		];
 
 		public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo {

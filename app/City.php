@@ -8,7 +8,7 @@
 	class City extends Eloquent {
 		use Followable;
 		protected $fillable = [
-			'name', 'country', 'lat', 'lng',
+			'name', 'country', 'lat', 'lng','followers_count','likes_count',
 		];
 
 		public function country() {

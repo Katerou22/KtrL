@@ -8,7 +8,7 @@
 	class Photo extends Eloquent {
 		use Likable;
 		protected $fillable = [
-			'user_id', 'path', 'thumbnail', 'city_id', 'travel_id', 'country_code',
+			'user_id', 'path', 'thumbnail', 'city_id', 'travel_id', 'country_code', 'followers_count', 'likes_count',
 		];
 
 		public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo {

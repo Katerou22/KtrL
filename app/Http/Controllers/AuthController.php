@@ -79,6 +79,7 @@
 				                   'name'     => 'required',
 				                   'city'     => 'required',
 				                   'country'  => 'required',
+				                   'avatar'   => 'required|mimes:jpeg,png,jpg',
 			                   ]);
 			if ($request->header('Device-Id') === NULL) {
 				return error('Device-Id Required');
@@ -100,6 +101,11 @@
 			}
 			$user = User::where('email', $email)->first();
 			if ($user === NULL) {
+
+
+				$name = upImage($request->file('avatar'), '/avatars/', TRUE);
+
+
 				$user = User::create([
 					                     'email'           => $email,
 					                     'name'            => $request->name,
@@ -111,6 +117,8 @@
 					                     'exp'             => 0,
 					                     'following_count' => 0,
 					                     'follower_count'  => 0,
+					                     'avatar'          => '/images/' . '/avatars/' . $name,
+
 
 				                     ]);
 
@@ -142,6 +150,7 @@
 				'email'           => $user->email,
 				'level'           => $user->level,
 				'exp'             => $user->exp,
+				'avatar'          => url($user->avatar),
 				'following_count' => $user->following_count,
 
 			];

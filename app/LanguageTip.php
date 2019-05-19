@@ -8,7 +8,7 @@
 	class LanguageTip extends Model {
 		use Likable;
 		protected $fillable = [
-			'original', 'translation', 'country_code', 'user_id', 'pronunciation',
+			'original', 'translation', 'country_code', 'user_id', 'pronunciation','followers_count','likes_count'
 		];
 
 		public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
