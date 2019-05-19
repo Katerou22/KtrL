@@ -17,7 +17,7 @@
 		public function countries() {
 
 
-			return api(CountryResource::collection(Country::all()));
+			return api(Country::select('flag', 'code', 'name')->get());
 		}
 
 		public function getCountry(Country $country) {
