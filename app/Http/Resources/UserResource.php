@@ -14,12 +14,15 @@
 		 */
 		public function toArray($request) {
 			return [
-				'id'      => $this->id,
-				'name'    => $this->name,
-				'email'   => $this->email,
-				'country' => $this->country->name,
-				'city'    => $this->city->name,
-				'avatar'  => url($this->avatar),
+				'id'              => $this->id,
+				'name'            => $this->name,
+				'email'           => $this->email,
+				'country'         => $this->country->name,
+				'city'            => $this->city->name,
+				'level'           => $this->level,
+				'exp'             => $this->exp,
+				'following_count' => $this->following_count,
+				'avatar'          => url($this->avatar),
 			];
 		}
 	}
