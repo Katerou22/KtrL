@@ -21,7 +21,7 @@
 				return [
 					'code' => $country->code,
 					'name' => $country->name,
-					'flag' => url($country->flag),
+					'flag' => $country->flag,
 				];
 			}));
 		}
