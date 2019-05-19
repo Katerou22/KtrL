@@ -13,8 +13,16 @@
 		 * @return array
 		 */
 		public function toArray($request) {
-			return [
 
+			return [
+				'id'          => $this->id,
+				'title'       => $this->title,
+				'user'        => new UserResource($this->user),
+				'photo'       => url($this->photo),
+				'likes_count' => $this->likes_count,
+				'is_liked'    => FALSE, //test
+				'native'      => $this->user->country->code === $this->country_code,
+				'created_at'  => $this->created_at->timestamp,
 			];
 		}
 	}

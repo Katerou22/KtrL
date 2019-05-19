@@ -21,42 +21,50 @@
 		public function toArray($request) {
 			$user = auth('api')->user();
 
-			$culturalNoteList = $this->cultural_notes;
-			$languageTip = $this->language_tips;
+			$culturalNoteList = $this->cultural_notes ?? collect([]);
+			$languageTip = $this->language_tips ?? collect([]);
 
-			$userCulturalNoteList = $user === NULL ? collect([]) : $culturalNoteList->where('user_id', $user->id);
-			$userLanguageTip = $user === NULL ? collect([]) : $languageTip->where('user_id', $user->id);
+			//			$userCulturalNoteList = $user === NULL ? collect([]) : $culturalNoteList->where('user_id', $user->id);
+			//			$userLanguageTip = $user === NULL ? collect([]) : $languageTip->where('user_id', $user->id);
 
 			return [
-				'country'              => new CountryResource($this),
+				new CountryResource($this),
 				//				'CountrySearchList'             => new CountryResource($this),
 				//				'review'               => new CountryResource($this), //is
 				//				'reviewList'           => new CountryResource($this),//is
-				'culturalNoteList'     => CalturalNoteResource::collection($culturalNoteList),
-				'culturalNoteEditList' => CalturalNoteResource::collection($userCulturalNoteList),
+				CulturalNoteResource::collection($culturalNoteList),
+				//				'culturalNoteEditList' => CulturalNoteResource::collection($userCulturalNoteList) //if is in travel,
 				//				'eventSmallList'                => new CountryResource($this),
 				//				'eventLargeList'                => new CountryResource($this),
-				'languageTipList'      => LanguageTipResource::collection($userCulturalNoteList),//is
-				'languageTipEditList'  => LanguageTipResource::collection($userLanguageTip),//is
+				LanguageTipResource::collection($languageTip),//is
+				//				'languageTipEditList'  => LanguageTipResource::collection($userLanguageTip),//is//if is in travel,
 				//				'TouristTrapVerticalList'       => new CountryResource($this),
 				//				'TouristTrapHorizontalList'     => new CountryResource($this),
 				//				'TouristTrapEditVerticalList'   => new CountryResource($this),
 				//				'TouristTrapEditHorizontalList' => new CountryResource($this),
 				//				'newsList'             => new CountryResource($this),//is
-				'currency'             => [
-					'home'        => [
-						'flag'      => $this->flag,
-						'base'      => 1 . ' ' . $this->currency,
-						'converted' => 1,
-					],
-					'destination' => [
-						'flag'      => $user === NULL ? NULL : $user->country->flag,
-						'base'      => $user === NULL ? NULL : 1 . ' ' . $user->country->currency,
-						'converted' => 1,
+				[
+					'title' => 'Currency',
+					'type'  => 'currency',
+					'model' => [
+						'home'        => [
+							'flag'      => $this->flag,
+							'base'      => 1 . ' ' . $this->currency,
+							'converted' => 1,
+						],
+						'destination' => [
+							'flag'      => $user === NULL ? NULL : $user->country->flag,
+							'base'      => $user === NULL ? NULL : 1 . ' ' . $user->country->currency,
+							'converted' => 1,
+						],
 					],
 				],
-				'notToMiss'            => new CountryResource($this),
-				'notToMissEdit'        => new CountryResource($this),
+				[
+					'title' => 'Not To Miss',
+					'type'  => 'notToMiss',
+					'model' => NotToMissesResource::collection($this->not_to_misses->groupBy('type')),
+				],
+				//				'notToMissEdit'    => new CountryResource($this),//if is in travel,
 				//				'WeatherDetail'                 => new CountryResource($this),
 				//				'WeatherAverage'                => new CountryResource($this),
 				//				'placeNormalList'      => new CountryResource($this),//is

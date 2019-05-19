@@ -19,7 +19,7 @@
 		use Notifiable, Followable, Photoable, Likable;
 
 		protected $fillable = [
-			'name', 'email', 'password', 'api_token', 'avatar', 'country_id', 'city_id', 'level', 'exp', 'followings_count', 'followers_count', 'likes_count',
+			'name', 'email', 'password', 'api_token', 'avatar', 'country_code', 'city_id', 'level', 'exp', 'followings_count', 'followers_count', 'likes_count',
 		];
 		protected $hidden = [
 			'password', 'remember_token',
@@ -38,7 +38,7 @@
 		}
 
 		public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
-			return $this->belongsTo(Country::class);
+			return $this->belongsTo(Country::class, 'country_code', 'code');
 		}
 
 		public function buckets(): \Jenssegers\Mongodb\Relations\EmbedsMany {

@@ -16,16 +16,24 @@
 			$user = auth('api')->user();
 
 			return [
-				'id'            => $this->id,
-				'title'         => $this->title,
-				'user'          => new UserResource($this->user),
-				'original'      => $this->original,
-				'translation'   => $this->translation,
-				'pronunciation' => $this->pronunciation,
-				'likes_count'   => $this->likes_count,
-				'is_liked'      => FALSE, //test
-				'native'        => $this->user->country->code === $this->country_code,
-				'created_at'    => $this->created_at->timestamp,
+
+				'title' => 'Language Tip',
+				'type'  => 'languageTip',
+				'model' => [
+
+					'id'            => $this->id,
+					'title'         => $this->title,
+					'user'          => new UserResource($this->user),
+					'original'      => $this->original,
+					'translation'   => $this->translation,
+					'pronunciation' => $this->pronunciation,
+					'likes_count'   => $this->likes_count,
+					'is_liked'      => FALSE, //test
+					'native'        => $this->user->country->code === $this->country_code,
+					'created_at'    => $this->created_at->timestamp,
+				],
+
+
 			];
 		}
 	}
