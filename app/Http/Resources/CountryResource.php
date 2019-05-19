@@ -31,7 +31,7 @@
 
 					'code'         => $this->code,
 					'name'         => $this->name,
-					'flag'         => url($this->flag),
+					'flag'         => $this->flag,
 					'map'          => $this->map,
 					'languages'    => $this->languages,
 					'review_count' => $this->review_count,
