@@ -58,6 +58,10 @@
 							'key'   => 'Capital',
 							'value' => $this->capital,
 						],
+						[
+							'key'   => 'Phone',
+							'value' => $this->phone,
+						],
 
 					],
 				],
