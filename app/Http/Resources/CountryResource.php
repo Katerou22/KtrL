@@ -25,7 +25,7 @@
 			$user = auth('api')->user();
 
 			return [
-				'title' => NULL,
+				'title' => 'Summary',
 				'type'  => 'country',
 				'model' => [
 
