@@ -1429,12 +1429,35 @@
 			}
 		}
 		$errors = [];
+		$arr = [
+			'St. John\'s'         => 'St_Johns',
+			'Oranjestad'          => 'Bermuda',
+			'Canberra'            => 'Melbourne',
+			'Manama'              => 'Dubai',
+			'Bridgetown'          => 'Bermuda',
+			'Belmopan'            => 'Chicago',
+			'Hamilton'            => 'Dubai',
+			'Sucre'               => 'Dubai',
+			'Andorra la Vella'    => 'Noronha',
+			'Tirana'              => 'Noronha',
+			'The_Valley'          => 'Bermuda',
+			'Brasilia'            => 'Sao_Paulo',
+			'Diego Garcia'        => 'Belize',
+			'Bandar Seri Begawan' => 'Belize',
+			'Beijing'             => 'Shanghai',
+			'Flying Fish Cove'    => 'Creston',
+			'Flying Fish Cove'    => 'Creston',
+		];
 		foreach (\App\Country::all() as $country) {
 			try {
 				$c = Str::before($country->timezone[ 0 ], '/');
-				$timezone = $c . '/' . $country->capital;
-				$country->timezone = $timezones->$timezone;
-				$country->save();
+				if ($c !== '(') {
+					$timezone = $c . '/' . str_replace(' ', '_', $country->capital);
+					$country->timezone = $utcs[ $timezone ];
+					$country->save();
+				}
+
+
 			} catch (Exception $e) {
 				$errors[] = $country->capital;
 			}

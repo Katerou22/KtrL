@@ -83,7 +83,7 @@
 			if ($newsResource->count() > 0) {
 				$data[] = [
 					'title' => 'News',
-					'type'  => 'news',
+					'type'  => 'newsList',
 					'model' => $newsResource,
 				];
 			}
