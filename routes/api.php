@@ -13,6 +13,7 @@
 
 		Route::prefix('{country}')->group(function () {
 			Route::get('/', 'CountryController@getCountry');
+			Route::get('/news', 'CountryController@getNews');
 			Route::get('/{model}', 'CountryController@getCountryChild');
 
 

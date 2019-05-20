@@ -70,11 +70,21 @@
 			if ($photoResource->count() > 0) {
 				$data[] = [
 					'title' => 'Photos',
-					'type'  => 'photo',
+					'type'  => 'gallerySix',
 					'model' => [
 						'count'  => count($this->photos->count()),
 						'photos' => $photoResource,
 					],
+				];
+			}
+
+
+			$newsResource = getNews($this->code) ?? collect([]);
+			if ($newsResource->count() > 0) {
+				$data[] = [
+					'title' => 'News',
+					'type'  => 'news',
+					'model' => $newsResource,
 				];
 			}
 

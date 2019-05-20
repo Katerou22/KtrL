@@ -946,4 +946,23 @@
 
 	}
 
+	function getNews($code) {
+		$key = 'e6be4e1295974f6c88e36f2acc6ccc97';
+		$code = strtolower($code);
+		$url = "https://newsapi.org/v2/top-headlines?country=$code&apiKey=$key";
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, FALSE);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
+
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+
+		$result = curl_exec($ch);
+
+
+		return \App\Http\Resources\NewsResource::collection(collect(json_decode($result, FALSE)->articles));
+	}
+
 

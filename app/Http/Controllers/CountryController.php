@@ -9,9 +9,11 @@
 	use App\Http\Resources\CountryShowResource;
 	use App\Http\Resources\CulturalNoteResource;
 	use App\Http\Resources\LanguageTipResource;
+	use App\Http\Resources\NewsResource;
 	use App\Http\Resources\NotToMissResource;
 	use App\Photo;
 	use App\Travel;
+	use Carbon\Carbon;
 	use Illuminate\Http\Request;
 
 	class CountryController extends Controller {
@@ -169,6 +171,12 @@
 
 			return api(new NotToMissResource($not_to_miss));
 
+		}
+
+		public function getNews(Country $country) {
+
+
+			return getNews($country->code);
 		}
 
 	}
