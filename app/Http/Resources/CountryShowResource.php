@@ -4,12 +4,6 @@
 
 	use Illuminate\Http\Resources\Json\JsonResource;
 
-	/**
-	 * @property mixed language_tips
-	 * @property mixed cultural_notes
-	 * @property mixed flag
-	 * @property mixed currency
-	 */
 	class CountryShowResource extends JsonResource {
 		/**
 		 * Transform the resource into an array.
@@ -20,9 +14,8 @@
 		 */
 		public function toArray($request) {
 			$user = auth('api')->user();
-
-			$culturalNoteList = $this->cultural_notes ?? collect([]);
-			$languageTip = $this->language_tips ?? collect([]);
+			$culturalNoteList = $this->resource->cultural_notes()->orderBy('likes_count')->take(5)->get() ?? collect([]);
+			$languageTip = $this->resource->language_tips()->orderBy('likes_count')->take(5)->get() ?? collect([]);
 
 			//			$userCulturalNoteList = $user === NULL ? collect([]) : $culturalNoteList->where('user_id', $user->id);
 			//			$userLanguageTip = $user === NULL ? collect([]) : $languageTip->where('user_id', $user->id);
@@ -30,12 +23,20 @@
 			$data[] = new CountryResource($this);
 			$culturalNoteResource = CulturalNoteResource::collection($culturalNoteList);
 			if ($culturalNoteResource->count() > 0) {
-				$data[] = $culturalNoteResource;
+				$data[] = [
+					'title' => 'Cultural Note',
+					'type'  => 'culturalNote',
+					'model' => $culturalNoteResource,
+				];
 			}
 
 			$languageTipResource = LanguageTipResource::collection($languageTip);
 			if ($languageTipResource->count() > 0) {
-				$data[] = $languageTipResource;
+				$data[] = [
+					'title' => 'Language Tip',
+					'type'  => 'languageTip',
+					'model' => $languageTipResource,
+				];
 			}
 
 			$data[] = [
@@ -55,7 +56,8 @@
 				],
 			];
 
-			$notToMissResource = NotToMissesResource::collection($this->not_to_misses->groupBy('type'));
+			$notToMissResource = NotToMissesResource::collection($this->resource->not_to_misses()->orderBy('likes_count')->take(5)->get()->groupBy
+			                                                     ('type') ?? collect([]));
 			if ($notToMissResource->count() > 0) {
 				$data[] = [
 					'title' => 'Not To Miss',

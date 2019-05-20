@@ -13,7 +13,7 @@
 
 		Route::prefix('{country}')->group(function () {
 			Route::get('/', 'CountryController@getCountry');
-			Route::get('/cities', 'CountryController@getCity');
+			Route::get('/{model}', 'CountryController@getCountryChild');
 
 
 		});

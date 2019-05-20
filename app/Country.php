@@ -21,6 +21,10 @@
 			return $this->hasMany(CulturalNote::class, 'country_code', 'code');
 		}
 
+		public function language_tips(): \Illuminate\Database\Eloquent\Relations\HasMany {
+			return $this->hasMany(LanguageTip::class, 'country_code', 'code');
+		}
+
 		public function not_to_misses(): \Illuminate\Database\Eloquent\Relations\HasMany {
 			return $this->hasMany(NotToMiss::class, 'country_code', 'code');
 		}

@@ -6,12 +6,13 @@
 	use App\Country;
 	use App\Http\Resources\CityResource;
 	use App\Http\Resources\CountryCollection;
-	use App\Http\Resources\CountryResource;
 	use App\Http\Resources\CountryShowResource;
+	use App\Http\Resources\CulturalNoteResource;
+	use App\Http\Resources\LanguageTipResource;
+	use App\Http\Resources\NotToMissResource;
 	use App\Photo;
 	use App\Travel;
 	use Illuminate\Http\Request;
-	use Intervention\Image\Facades\Image;
 
 	class CountryController extends Controller {
 		public function countries() {
@@ -33,11 +34,35 @@
 
 		}
 
-		public function getCity(Country $country) {
+		public function getCountryChild(Country $country, $model, Request $request) {
+			$models = [
+				'notToMisses'   => ['likes_count', 'created_at', 'title'],
+				'culturalNotes' => ['likes_count', 'created_at', 'title'],
+				'languageTips'  => ['likes_count', 'created_at', 'language'],
+				'cities'        => ['likes_count', 'created_at', 'name'],
+			];
 
-			return api(CityResource::collection($country->cities));
+			if ( ! array_key_exists($model, $models)) {
+				abort(404);
+			}
+			$sorts = $models[ $model ];
+			$sort = $sorts[ 0 ];
+			$relationName = \Str::snake($model);
+			$resourceName = 'App\Http\Resources\\' . \Str::singular(\Str::studly($relationName)) . 'Resource';
+
+			if ($request->sort) {
+				if ( ! in_array($request->sort, $sorts, TRUE)) {
+					return error('Wrong Sort Use');
+				} else {
+					$sort = $request->sort;
+				}
+			}
 
 
+			$data = $country->$relationName()->orderBy($sort)->paginate(10);
+			$resource = $resourceName::collection($data)->additional(['sorts' => $sorts, 'sorted_by' => $sort]);
+
+			return api($resource);
 		}
 
 		public function addCulturalNote(Country $country, Request $request) {
@@ -52,7 +77,7 @@
 				                                                    'likes_count' => 0,
 			                                                    ]);
 
-			return api($cultural_note);
+			return api(new CulturalNoteResource($cultural_note));
 
 		}
 
@@ -81,7 +106,7 @@
 				                                                  'likes_count'   => 0,
 			                                                  ]);
 
-			return api($language_tip);
+			return api(new LanguageTipResource($language_tip));
 
 		}
 
@@ -140,7 +165,7 @@
 				                                                                  $type . '/' . $photo_name,
 			                                                 ]);
 
-			return api($not_to_miss);
+			return api(new NotToMissResource($not_to_miss));
 
 		}
 

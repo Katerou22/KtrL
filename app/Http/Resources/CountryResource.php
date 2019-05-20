@@ -35,8 +35,8 @@
 					'map'          => $this->map,
 					'languages'    => $this->languages,
 					'review_count' => $this->review_count,
-					'followed'     => optional($user)->hasFollowed($this) ?? FALSE,
-					'bucketed'     => optional($user)->hasBucket($this) ?? FALSE,
+					'followed'     => optional($user)->hasFollowed($this->resource) ?? FALSE,
+					'bucketed'     => optional($user)->hasBucket($this->resource) ?? FALSE,
 					'extra'        => [
 						[
 							'key'   => 'Timezone',

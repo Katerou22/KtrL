@@ -18,6 +18,7 @@
 	use App\TelegramUser;
 	use Davibennun\LaravelPushNotification\Facades\PushNotification;
 	use GuzzleHttp\Client;
+	use Illuminate\Pagination\LengthAwarePaginator;
 
 	function flash($title = NULL, $message = NULL) {
 		$flash = app(\App\Http\Utilites\Flash::class);
@@ -187,11 +188,14 @@
 
 
 	function api($data = NULL, $message = 'success', $code = 1000, $http_code = 200) {
+		$hasPaginate = FALSE;
 		if ($message == 'success') {
 			$status = 'success';
 		} else {
 			$status = 'fail';
 		}
+
+
 		$response = [
 			'status' => $status,
 			'meta'   => [
@@ -203,7 +207,30 @@
 
 		];
 
+		if ($data !== NULL) {
+			if (array_key_exists('resource', $data) && $data->resource instanceof LengthAwarePaginator) {
+				$response[ 'meta' ][ 'paginate' ] = [
+					'total'        => $data->total(),
+					'count'        => $data->count(),
+					'per_page'     => $data->perPage(),
+					'current_page' => $data->currentPage(),
+					'total_pages'  => $data->lastPage(),
+					'is_last_page' => $data->lastPage() === $data->currentPage(),
+				];
+			}
+
+			if (array_key_exists('additional', $data)) {
+				foreach ($data->additional as $key => $value) {
+					$response[ 'meta' ][ $key ] = $value;
+
+				}
+			}
+		}
+
+
 		return response($response, $http_code);
+
+
 	}
 
 	function error($message, $code = NULL) {

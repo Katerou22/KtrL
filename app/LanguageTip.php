@@ -3,9 +3,9 @@
 	namespace App;
 
 	use App\Http\Utilities\Likable;
-	use Illuminate\Database\Eloquent\Model;
+	use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-	class LanguageTip extends Model {
+	class LanguageTip extends Eloquent {
 		use Likable;
 		protected $fillable = [
 			'original', 'translation', 'country_code', 'user_id', 'pronunciation', 'followers_count', 'likes_count', 'language',

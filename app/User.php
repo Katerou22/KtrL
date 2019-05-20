@@ -148,7 +148,6 @@
 				'App\LanguageTip',
 				'App\NotToMiss',
 			];
-
 			$type = get_class($model);
 			if ( ! in_array($type, $classes, TRUE)) {
 				$type = get_class($model->resource);
