@@ -110,11 +110,11 @@
 
 		}
 
-		public function addImage(Country $country, Request $request) {
+		public function addPhotos(Country $country, Request $request) {
 			$request->validate([
-				                   'photo' => 'required|mimes:jpeg,png,jpg',
+				                   'photos'   => 'required',
+				                   'photos.*' => 'mimes:jpeg,png,jpg',
 			                   ]);
-
 
 			if ($request->city) {
 				City::findOrFail($request->city);
@@ -125,18 +125,20 @@
 			}
 
 
-			$name = upImage($request->file('photo'), $country->code . '/photos/', TRUE);
-			$photo = new Photo([
-				                   'user_id'      => auth()->user()->id,
-				                   'city_id'      => $request->city,
-				                   'country_code' => $country->code,
-				                   'travel_id'    => $request->travel,
-				                   'path'         => '/images/' . $country->code . '/photos/' . $name,
-				                   'thumbnail'    => '/thumbnails/' . $country->code . '/photos/' . $name,
-				                   'likes_count'  => 0,
-			                   ]);
-			$country->photos()->save($photo);
-			$this->user->photos()->save($photo);
+			foreach ($request->photos as $photo) {
+				$name = upImage($photo, $country->code . '/photos/', TRUE);
+				Photo::create([
+					              'user_id'     => auth()->user()->id,
+					              'city_id'     => $request->city,
+					              'country_id'  => $country->id,
+					              'travel_id'   => $request->travel,
+					              'path'        => '/images/' . $country->code . '/photos/' . $name,
+					              'thumbnail'   => '/thumbnails/' . $country->code . '/photos/' . $name,
+					              'likes_count' => 0,
+				              ]);
+
+			}
+
 
 			return api('Done');
 		}

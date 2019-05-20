@@ -207,7 +207,7 @@
 
 		];
 
-		if ($data !== NULL) {
+		if ($data !== NULL && is_array($data)) {
 			if (array_key_exists('resource', $data) && $data->resource instanceof LengthAwarePaginator) {
 				$response[ 'meta' ][ 'paginate' ] = [
 					'total'        => $data->total(),
@@ -926,7 +926,7 @@
 
 		}
 
-		$name = $name ?? time() . '.' . $photo_from_request->getClientOriginalExtension();
+		$name = $name ?? Str::uuid() . '.' . $photo_from_request->getClientOriginalExtension();
 
 
 		$original = $path . $name;

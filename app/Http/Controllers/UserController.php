@@ -4,6 +4,7 @@
 
 	use App\Country;
 	use App\Follow;
+	use App\Photo;
 	use Illuminate\Http\Request;
 
 	class UserController extends Controller {
@@ -51,6 +52,7 @@
 			}
 			$model_name = 'App\\' . $type;
 			$model = $model_name::where((new $model_name)->getRouteKeyName(), $id)->first();
+
 			if ($model === NULL) {
 				return error("$type Not Found", 404);
 

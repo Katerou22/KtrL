@@ -159,7 +159,6 @@
 
 			}
 
-
 			$route_key_name = $model->getRouteKeyName();
 			$liked = $this->likes->where('type', $type)->where('id', $model->$route_key_name)->first();
 			if ($liked !== NULL) {

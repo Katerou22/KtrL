@@ -22,7 +22,7 @@
 				'level'           => $this->level,
 				'exp'             => $this->exp,
 				'following_count' => $this->following_count,
-				'avatar'          => $this->avatar,
+				'avatar'          => url($this->avatar),
 			];
 		}
 	}

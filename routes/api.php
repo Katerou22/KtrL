@@ -35,7 +35,7 @@
 
 					Route::post('culturalNote', 'CountryController@addCulturalNote');
 					Route::post('languageTip', 'CountryController@addLanguageTip');
-					Route::post('image', 'CountryController@addImage');
+					Route::post('photos', 'CountryController@addPhotos');
 					Route::post('notToMiss/{type}', 'CountryController@addNotToMiss');
 				});
 

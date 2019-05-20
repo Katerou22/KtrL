@@ -66,6 +66,18 @@
 				];
 			}
 
+			$photoResource = PhotoResource::collection($this->resource->photos()->orderBy('likes_count')->take(5)->get() ?? collect([]));
+			if ($photoResource->count() > 0) {
+				$data[] = [
+					'title' => 'Photos',
+					'type'  => 'photo',
+					'model' => [
+						'count'  => count($this->photos->count()),
+						'photos' => $photoResource,
+					],
+				];
+			}
+
 
 			return $data;
 
