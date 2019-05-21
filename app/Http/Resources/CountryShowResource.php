@@ -16,11 +16,24 @@
 			$user = auth('api')->user();
 			$culturalNoteList = $this->resource->cultural_notes()->orderBy('likes_count')->take(5)->get() ?? collect([]);
 			$languageTip = $this->resource->language_tips()->orderBy('likes_count')->take(5)->get() ?? collect([]);
+			$cities = $this->resource->cities()->orderBy('likes_count')->take(5)->get() ?? collect([]);
 
 			//			$userCulturalNoteList = $user === NULL ? collect([]) : $culturalNoteList->where('user_id', $user->id);
 			//			$userLanguageTip = $user === NULL ? collect([]) : $languageTip->where('user_id', $user->id);
 			$data = [];
 			$data[] = new CountryResource($this);
+
+
+			$cityResource = CityResource::collection($cities);
+			if ($cityResource->count() > 0) {
+				$data[] = [
+					'title' => 'Cities',
+					'type'  => 'citiesList',
+					'model' => $cityResource,
+				];
+			}
+
+
 			$culturalNoteResource = CulturalNoteResource::collection($culturalNoteList);
 			if ($culturalNoteResource->count() > 0) {
 				$data[] = [
@@ -29,6 +42,7 @@
 					'model' => $culturalNoteResource,
 				];
 			}
+
 
 			$languageTipResource = LanguageTipResource::collection($languageTip);
 			if ($languageTipResource->count() > 0) {
