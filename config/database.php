@@ -94,7 +94,7 @@
 				'username' => env('DB_USERNAME', 'traveli'),
 				'password' => env('DB_PASSWORD', 'NnDS9ShdTGXV4jfc'),
 				'options'  => [
-					'database' => 'travilo' // sets the authentication database required by mongo 3
+					'database' => 'traveli_db' // sets the authentication database required by mongo 3
 				],
 			],
 
