@@ -2,13 +2,9 @@
 
 Route::get('/test', function (){
 
-    $countries = ['name' => 'iran', 'code' => 1];
-    $city = ['name' => 'tehran', 'country_code' => 1];
-
-    \App\Country::create($countries);
-    \App\City::create($city);
-
-    dd(\App\Country::all(), \App\City::all());
+    \App\Country::where('code', 1)->update(['code', '1']);
+//
+//    dd(\App\Country::all(), \App\City::all());
 });
 
 

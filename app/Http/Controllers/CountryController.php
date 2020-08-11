@@ -30,7 +30,7 @@
 		}
 
 		public function getCountry(Country $country) {
-
+		    dd($country);
 			return api(new CountryShowResource($country));
 
 
