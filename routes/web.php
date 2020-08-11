@@ -2,9 +2,7 @@
 
 Route::get('/test', function (){
 
-    \App\Country::where('code', 1)->update(['code', '1']);
-//
-//    dd(\App\Country::all(), \App\City::all());
+    dd(\App\Country::all(), \App\City::all());
 });
 
 
