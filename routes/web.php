@@ -2,7 +2,13 @@
 
 Route::get('/test', function (){
 
-    dd(\App\Country::all(), \App\City::all());
+    \App\Country::where('code', 1)->delete();
+    \App\Country::create([
+        'name' => 'iran',
+        'code' => '1'
+    ]);
+//
+//    dd(\App\Country::all(), \App\City::all());
 });
 
 
