@@ -14,7 +14,7 @@
 		];
 
 		public function cities(): \Illuminate\Database\Eloquent\Relations\HasMany {
-			return $this->hasMany(City::class, 'country', 'code');
+			return $this->hasMany(City::class, 'country_code', 'code');
 		}
 
 		public function cultural_notes(): \Illuminate\Database\Eloquent\Relations\HasMany {
