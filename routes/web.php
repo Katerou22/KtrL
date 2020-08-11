@@ -1,15 +1,5 @@
 <?php
 
-Route::get('/test', function (){
-
-    \App\City::create([
-        'name' => 'iran',
-        'country_code' => '1'
-    ]);
-//
-//    dd(\App\Country::all(), \App\City::all());
-});
-
 
 	Route::get('/', function () {
 		return view('welcome');
