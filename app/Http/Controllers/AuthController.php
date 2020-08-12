@@ -52,29 +52,31 @@ class AuthController extends Controller
                     ]);
 
                 }
+
+
+                $user_info = [
+                    'name' => $user->name,
+                    'city' => $user->city->name,
+                    'country' => $user->country->name,
+                    'email' => $user->email,
+                    'level' => $user->level,
+                    'exp' => $user->exp,
+                    'following_count' => $user->following_count,
+                    'follower_count' => $user->follower_count,
+
+                ];
+                $data = [
+                    'token' => $user->api_token,
+                    'user_info' => $user_info,
+                ];
+
+                return api($data);
             }
         } else {
             return error('No user found with this email');
 
         }
 
-        $user_info = [
-            'name' => $user->name,
-            'city' => $user->city->name,
-            'country' => $user->country->name,
-            'email' => $user->email,
-            'level' => $user->level,
-            'exp' => $user->exp,
-            'following_count' => $user->following_count,
-            'follower_count' => $user->follower_count,
-
-        ];
-        $data = [
-            'token' => $user->api_token,
-            'user_info' => $user_info,
-        ];
-
-        return api($data);
     }
 
     public function register(Request $request)
