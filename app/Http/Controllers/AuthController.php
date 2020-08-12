@@ -117,7 +117,7 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
                 'api_token' => Str::random(60),
                 'city_id' => $request->city,
-                'country_id' => $request->country,
+                'country_code' => $request->country,
                 'level' => 1,
                 'exp' => 0,
                 'followings_count' => 0,

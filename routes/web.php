@@ -1468,7 +1468,7 @@ Route::any('/tester', function (\Illuminate\Http\Request $request) {
 
 
 Route::get('/country', function (\Illuminate\Http\Request $request) {
-    dd(\App\User::all());
+    dd(\App\User::first()->update(['country_code' => 'IR']));
     $country = \App\Country::first();
     $country->cities()->create([
         'name' => 'Tehran',
