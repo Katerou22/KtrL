@@ -1468,6 +1468,7 @@ Route::any('/tester', function (\Illuminate\Http\Request $request) {
 
 
 Route::get('/country', function (\Illuminate\Http\Request $request) {
+    dd(\App\User::all());
     $country = \App\Country::first();
     $country->cities()->create([
         'name' => 'Tehran',

@@ -11,8 +11,6 @@
 
 			if ( ! isset($code)) {
 				$code = 9999;
-			} elseif (isset($code)) {
-				$statusCode = $code;
 			}
 
 			parent::__construct($statusCode, $message, $previous, [], $code);

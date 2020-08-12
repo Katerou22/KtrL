@@ -33,7 +33,7 @@ class AuthController extends Controller
         $user = User::where('email', $email)->first();
         if ($user !== null) {
             if (!Hash::check($request->password, $user->password)) {
-                return error('Not match credentials');
+                return error('Not match credentials',2002);
 
             } else {
                 $device = Device::where('device_id', $request->header('Device-Id'))->first();
@@ -73,7 +73,7 @@ class AuthController extends Controller
                 return api($data);
             }
         } else {
-            return error('No user found with this email');
+            return error('No user found with this email',2001);
 
         }
 
