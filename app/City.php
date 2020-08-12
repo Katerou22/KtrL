@@ -10,7 +10,7 @@ class City extends Eloquent
     use Followable;
 
     protected $fillable = [
-        'name', 'country_code', 'lat', 'lng', 'followers_count', 'subtitle', 'image'
+        'name', 'country_code', 'lat', 'lng', 'followers_count', 'image'
     ];
 
     public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -1475,7 +1475,6 @@ Route::get('/country', function (\Illuminate\Http\Request $request) {
         'lat' => null,
         'lng' => null,
         'followers_count' => 0,
-        'subtitle' => 'Hello Tehran',
         'image' => "https://i.pinimg.com/474x/42/78/78/4278784595f62404ada8cf8ab7fc9cd1.jpg"
 
     ]);
