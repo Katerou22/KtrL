@@ -30,33 +30,34 @@ class AuthController extends Controller
         } else {
             $email = $request->email;
         }
-        $login = Auth::guard()->attempt([
-            'email' => $email,
-            'password' => $request->password,
-        ]);
-        if (!$login) {
+        $user = User::where('email', $email)->first();
+        if ($user !== null) {
+            if (!Hash::check($request->password, $user->password)) {
+                return error('Not match credentials');
+
+            } else {
+                $device = Device::where('device_id', $request->header('Device-Id'))->first();
+                if ($device !== NULL) {
+                    $user->devices()->attach($device);
+                } else {
+                    $user->devices()->create([
+                        'os' => strtolower($request->os),
+                        'device_id' => $request->header('Device-Id'),
+                        'os_version' => $request->os_version,
+                        'app_version' => $request->app_version,
+                        'market' => $request->market,
+                        'brand' => $request->brand,
+                        'model' => $request->model,
+                        'notification_token' => $request->notification_token,
+                    ]);
+
+                }
+            }
+        } else {
             return error('Not match credentials');
 
-
-        } else {
-            $user = Auth::user();
-            $device = Device::where('device_id', $request->header('Device-Id'))->first();
-            if ($device !== NULL) {
-                $user->devices()->attach($device);
-            } else {
-                $user->devices()->create([
-                    'os' => strtolower($request->os),
-                    'device_id' => $request->header('Device-Id'),
-                    'os_version' => $request->os_version,
-                    'app_version' => $request->app_version,
-                    'market' => $request->market,
-                    'brand' => $request->brand,
-                    'model' => $request->model,
-                    'notification_token' => $request->notification_token,
-                ]);
-
-            }
         }
+
         $user_info = [
             'name' => $user->name,
             'city' => $user->city->name,
