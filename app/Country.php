@@ -12,7 +12,7 @@ class Country extends Eloquent
 
     protected $fillable = [
         'name', 'code', 'timezone', 'languages', 'population', 'currency', 'phone', 'capital', 'emoji', 'flag', 'map', 'reviews_count',
-        'followers_count', 'likes_count',
+        'followers_count', 'likes_count', 'image'
     ];
 
     public function cities(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -46,8 +46,7 @@ class Country extends Eloquent
         $model = self::where('code', strtoupper($code))->first();
 
         if ($model === NULL) {
-//				return error('Country Not Found', 404);
-            return null;
+            return error('Country Not Found', 404);
         }
 
 
