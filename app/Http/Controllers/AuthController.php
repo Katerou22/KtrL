@@ -39,7 +39,7 @@ class AuthController extends Controller
 
 
         } else {
-            $user = Auth::guard()->user();
+            $user = Auth::user();
             $device = Device::where('device_id', $request->header('Device-Id'))->first();
             if ($device !== NULL) {
                 $user->devices()->attach($device);
