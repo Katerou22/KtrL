@@ -1468,6 +1468,7 @@ Route::any('/tester', function (\Illuminate\Http\Request $request) {
 
 
 Route::get('/country', function (\Illuminate\Http\Request $request) {
+    dd('hello');
     $pops = '
 [{
     "country_name": "Afghanistan",
