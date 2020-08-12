@@ -1468,15 +1468,26 @@ Route::any('/tester', function (\Illuminate\Http\Request $request) {
 
 
 Route::get('/country', function (\Illuminate\Http\Request $request) {
-    \App\Country::first()->delete();
-    \App\Country::create([
-        'name' => 'Iran', 'code' => 'IR', 'timezone' => '+3:30', 'languages' => ['fa'],
-        'population' => 8500000, 'currency' => 'Rials', 'phone' => '+98',
-        'capital' => 'Tehran', 'emoji' => '🇮🇷', 'flag' => 'https://www.countryflags.io/ir/shiny/64.png',
-        'map' => 'https://www.countryflags.io/ir/shiny/64.png', 'reviews_count' => 0,
-        'followers_count' => 0, 'likes_count' => 0,
-        'image' => 'https://i.pinimg.com/474x/42/78/78/4278784595f62404ada8cf8ab7fc9cd1.jpg'
+    $country = \App\Country::first();
+    $country->cities()->create([
+        'name' => 'Tehran',
+        'country_code' => 'IR',
+        'lat' => null,
+        'lng' => null,
+        'followers_count' => 0,
+        'subtitle' => 'Hello Tehran',
+        'image' => "https://i.pinimg.com/474x/42/78/78/4278784595f62404ada8cf8ab7fc9cd1.jpg"
+
     ]);
+
+//    \App\Country::create([
+//        'name' => 'Iran', 'code' => 'IR', 'timezone' => '+3:30', 'languages' => ['fa'],
+//        'population' => 8500000, 'currency' => 'Rials', 'phone' => '+98',
+//        'capital' => 'Tehran', 'emoji' => '🇮🇷', 'flag' => 'https://www.countryflags.io/ir/shiny/64.png',
+//        'map' => 'https://www.countryflags.io/ir/shiny/64.png', 'reviews_count' => 0,
+//        'followers_count' => 0, 'likes_count' => 0,
+//        'image' => 'https://i.pinimg.com/474x/42/78/78/4278784595f62404ada8cf8ab7fc9cd1.jpg'
+//    ]);
 });
 
 Auth::routes();
