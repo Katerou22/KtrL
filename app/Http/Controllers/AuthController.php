@@ -33,7 +33,7 @@ class AuthController extends Controller
         $user = User::where('email', $email)->first();
         if ($user !== null) {
             if (!Hash::check($request->password, $user->password)) {
-                return error('Not match credentials',2002);
+                return error('Not match credentials', 2002);
 
             } else {
                 $device = Device::where('device_id', $request->header('Device-Id'))->first();
@@ -73,7 +73,7 @@ class AuthController extends Controller
                 return api($data);
             }
         } else {
-            return error('No user found with this email',2001);
+            return error('No user found with this email', 2001);
 
         }
 
@@ -169,6 +169,27 @@ class AuthController extends Controller
         ];
 
         return api($data);
+    }
+
+    public function recover(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string',
+
+        ]);
+
+
+        if (strstr($request->email, '@') === '@gmail.com') {
+            $email = str_replace('.', '', strstr($request->email, '@', TRUE)) . '@gmail.com';
+        } else {
+            $email = $request->email;
+        }
+        $user = User::where('email', $email)->first();
+        //send email to user
+
+
+        return api(true);
+
     }
 
     public function update(Request $request)
