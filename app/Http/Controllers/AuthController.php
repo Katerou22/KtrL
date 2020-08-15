@@ -284,4 +284,9 @@ class AuthController extends Controller
 
 
     }
+
+    public function getMe()
+    {
+        
+    }
 }

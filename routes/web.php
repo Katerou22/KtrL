@@ -5,6 +5,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::any('/tester', function (\Illuminate\Http\Request $request) {
+    dd(\App\Country::all());
     $timezones = '
 [
   {
