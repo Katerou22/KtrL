@@ -29,7 +29,7 @@ RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
 # Set working directory
-COPE .env.example .env
+COPY .env.example .env
 WORKDIR root/Traveli
 
 USER $user
