@@ -20,7 +20,7 @@ services:
       - travelinet
 
   db:
-    image: mongodb
+    image: mongo
     container_name: traveli-db
     restart: unless-stopped
     environment:
