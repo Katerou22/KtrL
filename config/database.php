@@ -94,7 +94,7 @@ return [
             'username' => env('DB_USERNAME'),
             'password' => env('DB_PASSWORD'),
             'options' => [
-                'database' => 'travilo' // sets the authentication database required by mongo 3
+                'database' => 'traveli' // sets the authentication database required by mongo 3
             ],
         ],
 
