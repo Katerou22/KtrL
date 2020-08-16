@@ -13,9 +13,9 @@ services:
     image: traveli
     container_name: traveli-app
     restart: unless-stopped
-    working_dir: /root/Traveli
+    working_dir: /var/www/Traveli
     volumes:
-      - ./:/var/www
+      - ./:/var/www/Traveli
     networks:
       - travelinet
 
@@ -40,7 +40,7 @@ services:
     ports:
       - 8000:80
     volumes:
-      - ./:/var/www
+      - ./:/var/www/Traveli
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
       - travelinet
