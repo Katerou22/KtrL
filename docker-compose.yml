@@ -6,7 +6,7 @@ services:
   app:
     build:
       args:
-        user: root
+        user: traveli
         uid: 1000
       context: ./
       dockerfile: docker-compose/Dockerfile
