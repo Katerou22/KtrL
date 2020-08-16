@@ -8,8 +8,8 @@ services:
       args:
         user: traveli
         uid: 1000
-      context: ../
-      dockerfile: Dockerfile
+      context: docker-compose
+      dockerfile: docker-compose/Dockerfile
     image: traveli
     container_name: traveli-app
     restart: unless-stopped
