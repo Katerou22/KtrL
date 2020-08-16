@@ -1,0 +1,47 @@
+version: "0"
+services:
+  app:
+    build:
+      args:
+        user: traveli
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: traveli
+    container_name: traveli-app
+    restart: unless-stopped
+    working_dir: /root/Traveli
+    volumes:
+      - ./:/root/Traveli
+    networks:
+      - travelinet
+
+  db:
+    image: mongodb
+    container_name: traveli-db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: hB672sViTguTFU
+        ports:
+          - 27017:27017
+        volumes:
+          - ./dcoker-compose/mongodb:/data/db
+    networks:
+      - travelinet
+
+  nginx:
+    image: nginx
+    container_name: traveli-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/root/Traveli
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - travlinet
+
+networks:
+  travelinet:
+    driver: bridge
