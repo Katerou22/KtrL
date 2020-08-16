@@ -43,7 +43,7 @@ services:
       - ./:/root/Traveli
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
-      - travlinet
+      - travelinet
 
 networks:
   travelinet:
