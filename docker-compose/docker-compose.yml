@@ -1,7 +1,9 @@
 version: "3.7"
+
 networks:
   travelinet:
     driver: bridge
+
 services:
   app:
     build:
