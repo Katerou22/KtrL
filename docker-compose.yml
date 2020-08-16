@@ -29,7 +29,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./dcoker-compose/mongodb:/data/db
+      - ./docker-compose/mongodb:/data/db
     networks:
       - travelinet
 
