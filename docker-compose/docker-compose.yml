@@ -1,8 +1,6 @@
 version: "3.7"
 
-networks:
-  travelinet:
-    driver: bridge
+
 
 services:
   app:
@@ -47,3 +45,6 @@ services:
     networks:
       - travlinet
 
+networks:
+  travelinet:
+    driver: bridge
