@@ -221,7 +221,7 @@ function api($data = NULL, $message = 'success', $code = 1000, $http_code = 200)
         ];
     }
 
-    if (array_key_eproperty_existsxists('additional', $data)) {
+    if (property_exists('additional', $data)) {
         foreach ($data->additional as $key => $value) {
             $response['meta'][$key] = $value;
 
