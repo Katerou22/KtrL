@@ -210,8 +210,7 @@ function api($data = NULL, $message = 'success', $code = 1000, $http_code = 200)
         'data' => $data,
 
     ];
-    dd(property_exists($data, 'resource'));
-    if (property_exists('resource', $data) && $data->resource instanceof LengthAwarePaginator) {
+    if (property_exists($data, 'resource') && $data->resource instanceof LengthAwarePaginator) {
         $response['meta']['paginate'] = [
             'total' => $data->total(),
             'count' => $data->count(),
@@ -222,7 +221,7 @@ function api($data = NULL, $message = 'success', $code = 1000, $http_code = 200)
         ];
     }
 
-    if (property_exists('additional', $data)) {
+    if (property_exists($data, 'additional')) {
         foreach ($data->additional as $key => $value) {
             $response['meta'][$key] = $value;
 
