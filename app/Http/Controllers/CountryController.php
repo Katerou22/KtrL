@@ -15,6 +15,7 @@ use App\Photo;
 use App\Travel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CountryController extends Controller
 {
@@ -70,11 +71,12 @@ class CountryController extends Controller
     }
 
 
-    public function add()
+    public function add(Country $country, Request $request, $model, $type = null)
     {
-        
+        $method = 'add' . Str::studly($model);
+//            return $this->
     }
-    
+
     public function addCulturalNote(Country $country, Request $request)
     {
         $request->validate([

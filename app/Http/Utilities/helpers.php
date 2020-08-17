@@ -210,7 +210,7 @@ function api($data = NULL, $message = 'success', $code = 1000, $http_code = 200)
         'data' => $data,
 
     ];
-    if ($data !== null) {
+    if ($data !== null && $data instanceof \Illuminate\Http\Resources\Json\Resource) {
         if (property_exists($data, 'resource') && $data->resource instanceof LengthAwarePaginator) {
             $response['meta']['paginate'] = [
                 'total' => $data->total(),
