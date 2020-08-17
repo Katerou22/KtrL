@@ -210,28 +210,23 @@ function api($data = NULL, $message = 'success', $code = 1000, $http_code = 200)
         'data' => $data,
 
     ];
-    dd($data, is_array($data));
-    if ($data !== NULL && is_array($data)) {
-        dd(property_exists('resource', $data));
-        if (property_exists('resource', $data) && $data->resource instanceof LengthAwarePaginator) {
-            $response['meta']['paginate'] = [
-                'total' => $data->total(),
-                'count' => $data->count(),
-                'per_page' => $data->perPage(),
-                'current_page' => $data->currentPage(),
-                'total_pages' => $data->lastPage(),
-                'is_last_page' => $data->lastPage() === $data->currentPage(),
-            ];
-        }
-
-        if (array_key_eproperty_existsxists('additional', $data)) {
-            foreach ($data->additional as $key => $value) {
-                $response['meta'][$key] = $value;
-
-            }
-        }
+    if (property_exists('resource', $data) && $data->resource instanceof LengthAwarePaginator) {
+        $response['meta']['paginate'] = [
+            'total' => $data->total(),
+            'count' => $data->count(),
+            'per_page' => $data->perPage(),
+            'current_page' => $data->currentPage(),
+            'total_pages' => $data->lastPage(),
+            'is_last_page' => $data->lastPage() === $data->currentPage(),
+        ];
     }
 
+    if (array_key_eproperty_existsxists('additional', $data)) {
+        foreach ($data->additional as $key => $value) {
+            $response['meta'][$key] = $value;
+
+        }
+    }
 
     return response($response, $http_code);
 
