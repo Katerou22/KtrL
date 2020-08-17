@@ -51,5 +51,6 @@ Route::middleware('auth:api')->group(function () {
 
 Route::post('/auth/register', 'AuthController@register');
 Route::post('/auth/login', 'AuthController@login');
+Route::post('/auth/updateFcm', 'AuthController@updateFcm');
 Route::post('/auth/recover', 'AuthController@login');
 

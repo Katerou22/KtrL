@@ -1,0 +1,437 @@
+
+Traveli API:
+===========================
+1-
+Update FCM Token ✅
+
+POST
+~/auth/updateFcm
+
+Params:
+token : String
+
+Response :
+200
+
+===========================
+2-
+Main ✅
+
+GET
+~/
+
+Response :
+…
+
+===========================
+3-
+Get Travel
+
+GET
+~/travel/{travel_id}
+
+Response :
+List of Travel Countries.
+Countries contain cities.
+
+===========================
+4-
+Get Travel Country
+
+GET
+~/travel/{travel_id}/countries/{country_id}
+
+Response :
+List of Models:
+Expense
+Review
+Rate
+Memorable
+LikeDislike
+NotToMissEdit
+ApplicationList
+LanguageTipEditList
+CulturalNoteEditList
+Remove
+
+===========================
+5-
+Get Travel City
+
+GET
+~/travel/{travel_id}/city/{city_id}
+
+Response :
+List of Models:
+Arrive
+Review
+Gallery
+PlaceNormalList
+TouristTrapEditHorizontalList
+Remove
+
+===========================
+6-
+Get Travel Info
+
+GET
+~/travel/{travel_id}/info
+
+Response :
+Country Info.
+Contains travel info and country model.
+
+===========================
+7-
+Update Travel Info
+
+POST
+~/travel/{travel_id}/update
+
+Params:
+title : String
+start : Long
+end : Long
+country_id : Int
+description : String
+
+
+Response :
+Country Info.
+Contains travel info and country model.
+
+===========================
+8-
+Create Travel
+
+POST
+~/travel/create
+
+Params:
+title : String
+start : Long
+end : Long
+country_id : Int
+description : String
+
+
+Response :
+Country Info.
+Contains travel info and country model.
+
+===========================
+9-
+Delete Travel
+
+GET
+~/travel/{travel_id}/delete
+
+Response :
+OK
+
+===========================
+10-
+Finish Travel
+
+GET
+~/travel/{travel_id}/finish
+
+Response :
+OK
+
+===========================
+10-
+Add Country
+
+GET
+~/travel/{travel_id}/country/add/{country_id}
+
+Response :
+Country Info.
+Contains travel info and country model.
+
+===========================
+11-
+Add City
+
+GET
+~/travel/{travel_id}/country/{country_id}/city/add/{city_id}
+
+Response :
+Country Info.
+Contains travel info and country model.
+
+===========================
+12-
+Delete Country
+
+GET
+~/travel/{travel_id}/country/delete/{country_id}
+
+Response :
+Country Info.
+Contains travel info and country model.
+
+===========================
+13-
+Delete City
+
+GET
+~/travel/{travel_id}/country/{country_id}/city/delete/{city_id}
+
+Response :
+Country Info.
+Contains travel info and country model.
+
+===========================
+14-
+Register ✅
+
+POST
+~/auth/register
+
+Params:
+email
+password
+name
+avatar
+country_id
+city_id
+
+Response:
+User model and token.
+
+===========================
+15-
+Login ✅
+
+POST
+~/auth/login
+
+Params:
+email
+password
+
+Response:
+User model and token.
+
+===========================
+16-
+Get Country ✅
+
+GET
+~/countries/{country_id}
+
+Response :
+List of Models:
+Country
+ReviewList
+GallerySix
+Rate
+CityList
+WeatherAverage
+Currency
+NotToMiss
+NewsList
+LanguageTipList
+CulturalNoteList
+ApplicationList
+
+===========================
+17-
+Get City ✅
+
+GET
+~/city/{city_id}
+
+Response:
+List of Models:
+PlaceLargeList
+ReviewList
+GallerySix
+EventLargeList
+PlaceNormalList
+PlaceCycleList
+TouristTrapVerticalList
+PlaceNormalList
+WeatherDetail
+NewsList
+PlaceSquareList
+
+===========================
+18-
+Get Place
+
+GET
+~/place/{place_id}
+
+Response:
+None (Place Info)
+ReviewList
+EventSmallList
+PlaceNormalList
+PlaceNormalList
+
+===========================
+19-
+Search
+
+GET
+~/search/{text}
+
+Response:
+List of Models:
+CountrySearchList
+CitySearchList
+PlaceSearchList
+UserSearchList
+
+===========================
+20-
+Paginate
+
+POST
+~/{type}/?page={page}&sort={sort}
+
+Params:
+city_id : String nullable
+country_id : String nullable
+travel_id : String nullable
+user_id : String nullable
+
+Response:
+List of Requested type.
+
+===========================
+21-
+Paginate NotToMiss ✅
+
+POST
+~/NotToMiss/{type}/?page={page}&sort={sort}
+
+Params:
+city_id : String nullable
+country_id : String nullable
+travel_id : String nullable
+user_id : String nullable
+
+Response:
+List of NotToMiss Requested type.
+
+===========================
+22-
+Sort Paginated List
+
+GET
+~/{type}/sort
+
+Response:
+List of available sorts.
+
+===========================
+23-
+Get User Info ✅
+
+GET
+~/user/{user_id}
+
+Response:
+List of Models:
+None (User Info)
+TravelList
+AboutMe
+GalleryTop
+StatList
+AchievementList
+ContactList
+
+
+===========================
+24-
+Follow ✅
+
+GET
+~/user/{user_id}/follow
+
+Response:
+200
+
+===========================
+25-
+Un-Follow ✅
+
+GET
+~/user/{user_id}/unfollow
+
+Response:
+200
+
+===========================
+26-
+Update User ✅
+
+POST
+~/user/{user_id}/update
+
+Params:
+name : String
+image : File
+country_id : Int
+city_id : Int
+
+Response:
+200
+
+===========================
+27-
+Update User ✅
+
+POST
+~/user/{user_id}/update
+
+Params:
+name : String
+image : File
+country_id : Int
+city_id : Int
+
+Response:
+200
+
+===========================
+28-
+Add Content ✅
+
+POST
+~/{type}/add
+
+Params:
+type : String
+content : String (json data)
+city_id : String nullable
+country_id : String nullable
+travel_id : String nullable
+user_id : String nullable
+
+Response:
+Object of added type.
+
+===========================
+29-
+Update Content ✅
+
+POST
+~/{type}/{content_id}/update
+
+Params:
+type : String
+content : String (json data)
+city_id : String nullable
+country_id : String nullable
+travel_id : String nullable
+user_id : String nullable
+
+Response:
+Object of added type.
+
+===========================

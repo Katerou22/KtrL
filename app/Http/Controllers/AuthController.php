@@ -287,6 +287,17 @@ class AuthController extends Controller
 
     public function getMe()
     {
-        
+
+    }
+
+    public function updateFcm(Request $request)
+    {
+        $device = Device::where('device_id', $request->header('Device-Id'))->first();
+        if ($device !== NULL) {
+            $device->update([
+                'notification_token' => $request->notification_token
+            ])
+        }
+        return api(true);
     }
 }
