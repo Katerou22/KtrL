@@ -35,6 +35,17 @@ class Country extends Eloquent
         return $this->hasMany(NotToMiss::class, 'country_code', 'code');
     }
 
+
+    public function reviews(): \Jenssegers\Mongodb\Relations\EmbedsMany
+    {
+        return $this->embedsMany(Review::class, 'reviews');
+    }
+
+    public function rates(): \Jenssegers\Mongodb\Relations\EmbedsMany
+    {
+        return $this->embedsMany(Rate::class, 'rates');
+    }
+
     public static function getName($name)
     {
         return self::where('name', $name)->first();
@@ -68,9 +79,5 @@ class Country extends Eloquent
         return url($value);
     }
 
-    public function reviews(): \Jenssegers\Mongodb\Relations\EmbedsMany
-    {
-        return $this->embedsMany(Review::class, 'reviews');
-    }
 
 }

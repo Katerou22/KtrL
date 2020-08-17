@@ -2,23 +2,18 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-class Review extends Model
+class Review extends Eloquent
 {
-	protected $fillable = [
-		'user_id', 'path', 'likes', 'thumbnail', 'city_id', 'travel_id',
-	];
+    protected $fillable = [
+        'user_id', 'title', 'description'
+    ];
 
-	public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
-		return $this->belongsTo(User::class);
-	}
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
-	public function city(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
-		return $this->belongsTo(City::class);
-	}
 
-	public function travel(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
-		return $this->belongsTo(Travel::class);
-	}
 }

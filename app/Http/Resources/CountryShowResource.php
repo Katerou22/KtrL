@@ -28,7 +28,7 @@
 			if ($cityResource->count() > 0) {
 				$data[] = [
 					'title' => 'Cities',
-					'type'  => 'citiesList',
+					'type'  => 'cityList',
 					'model' => $cityResource,
 				];
 			}
