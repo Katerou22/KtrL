@@ -212,6 +212,7 @@ function api($data = NULL, $message = 'success', $code = 1000, $http_code = 200)
     ];
 
     if ($data !== NULL && is_array($data)) {
+        dd(property_exists('resource', $data));
         if (property_exists('resource', $data) && $data->resource instanceof LengthAwarePaginator) {
             $response['meta']['paginate'] = [
                 'total' => $data->total(),
