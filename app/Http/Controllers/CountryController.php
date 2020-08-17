@@ -66,8 +66,7 @@ class CountryController extends Controller
 
         $data = $country->$relationName()->orderBy($sort)->paginate(10);
         $resource = $resourceName::collection($data)->additional(['sorts' => $sorts, 'sorted_by' => $sort]);
-        dd($resource);
-//        return api($resource);
+        return api($resource->additional);
     }
 
     public function addCulturalNote(Country $country, Request $request)

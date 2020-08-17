@@ -296,7 +296,7 @@ class AuthController extends Controller
         if ($device !== NULL) {
             $device->update([
                 'notification_token' => $request->notification_token
-            ])
+            ]);
         }
         return api(true);
     }
