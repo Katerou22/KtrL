@@ -293,7 +293,7 @@ class AuthController extends Controller
     public function updateFcm(Request $request)
     {
         $device = Device::where('device_id', $request->header('Device-Id'))->first();
-        if ($device !== NULL) {
+        if ($device !== NULL && $request->notification_token) {
             $device->update([
                 'notification_token' => $request->notification_token
             ]);
