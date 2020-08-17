@@ -210,7 +210,7 @@ function api($data = NULL, $message = 'success', $code = 1000, $http_code = 200)
         'data' => $data,
 
     ];
-
+    dd($data, is_array($data));
     if ($data !== NULL && is_array($data)) {
         dd(property_exists('resource', $data));
         if (property_exists('resource', $data) && $data->resource instanceof LengthAwarePaginator) {
