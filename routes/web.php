@@ -1469,6 +1469,7 @@ Route::any('/tester', function (\Illuminate\Http\Request $request) {
 
 
 Route::get('/country', function (\Illuminate\Http\Request $request) {
+    return api('Salam');
 //    dd(\App\User::first()->update(['country_code' => 'IR']));
     $country = \App\Country::create([
         'name' => 'Iran', 'code' => 'IR', 'timezone' => '+3:30', 'languages' => ['fa'],
