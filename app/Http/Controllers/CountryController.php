@@ -69,6 +69,12 @@ class CountryController extends Controller
         return api($resource);
     }
 
+
+    public function add()
+    {
+        
+    }
+    
     public function addCulturalNote(Country $country, Request $request)
     {
         $request->validate([
