@@ -1469,6 +1469,7 @@ Route::any('/tester', function (\Illuminate\Http\Request $request) {
 
 
 Route::get('/country', function (\Illuminate\Http\Request $request) {
+    return api(\App\Travel::first());
     dd(getCity('35.6892', '51.3890'));
     dd(\Illuminate\Support\Str::studly('notToMiss'));
 //    dd(\App\User::first()->update(['country_code' => 'IR']));
