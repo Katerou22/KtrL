@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('like/{type}/{id}', 'UserController@toggleLike');
     Route::get('bucket', 'UserController@addToBucket');
     Route::post('/auth/update', 'AuthController@update');
+
     Route::prefix('countries')->group(function () {
 
         Route::prefix('{country}')->group(function () {
@@ -46,6 +47,29 @@ Route::middleware('auth:api')->group(function () {
 
 
     });
+
+
+    Route::prefix('travels')->group(function () {
+        Route::post('create', 'TravelController@create');
+
+
+//        Route::prefix('{country}')->group(function () {
+//
+//            Route::prefix('add')->group(function () {
+//
+//                Route::post('culturalNote', 'CountryController@addCulturalNote');
+//                Route::post('languageTip', 'CountryController@addLanguageTip');
+//                Route::post('photos', 'CountryController@addPhotos');
+//                Route::post('notToMiss/{type}', 'CountryController@addNotToMiss');
+//            });
+//
+//
+//        });
+
+
+    });
+
+
 });
 //	Route::any('/', 'ApiController@main');
 
