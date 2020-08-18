@@ -13,12 +13,11 @@ class TravelController extends Controller
 
     }
 
-    public function create(Request $request)
+    public function create(Request $request, Country $country)
     {
 
         $destinations = [];
 
-        $country = Country::getCode($request->country_code);
         $destinations[] = [
             'cities' => [],
             'country' => $country

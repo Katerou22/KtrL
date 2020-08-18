@@ -50,7 +50,7 @@ Route::middleware('auth:api')->group(function () {
 
 
     Route::prefix('travels')->group(function () {
-        Route::post('create', 'TravelController@create');
+        Route::post('{country}/create', 'TravelController@create');
 
 
 //        Route::prefix('{country}')->group(function () {
