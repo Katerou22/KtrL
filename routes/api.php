@@ -54,7 +54,7 @@ Route::middleware('auth:api')->group(function () {
 
 
         Route::prefix('{travel}')->group(function () {
-            Route::post('/', 'TravelController@get');
+            Route::get('/', 'TravelController@get');
 
 //            Route::prefix('add')->group(function () {
 //
