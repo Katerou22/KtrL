@@ -31,7 +31,7 @@ class TravelController extends Controller
         $travel = Travel::create([
             'title' => $request->title,
             'started_at' => new UTCDateTime($request->started_at),
-            'ended_at' => new UTCDateTime($request->ended_at),
+            'ended_at' => null,
             'description' => $request->description,
             'user_id' => $this->user->id,
             'destinations' => $destinations,
@@ -39,7 +39,7 @@ class TravelController extends Controller
         ]);
 
 
-        return api(['travel' => $travel]);
+        return api(['travel' => new TravelResource($travel)]);
 
     }
 }
