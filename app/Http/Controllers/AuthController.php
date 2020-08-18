@@ -290,14 +290,14 @@ class AuthController extends Controller
         $user = $this->user;
         $user_info = [
             'name' => $user->name,
-            'city' => $city->name,
-            'country' => $country->name,
+            'city' => $user->city->name,
+            'country' => $user->country->name,
             'email' => $user->email,
             'level' => $user->level,
             'exp' => $user->exp,
             'avatar' => url($user->avatar),
-            'followings_count' => $user->following_count,
-            'followers_count' => $user->followers_count,
+            'followings_count' => $user->following_count ?? 0,
+            'followers_count' => $user->followers_count ?? 0,
 
         ];
         return api(['user_info' => $user_info]);
