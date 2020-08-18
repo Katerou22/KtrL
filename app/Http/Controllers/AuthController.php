@@ -287,6 +287,20 @@ class AuthController extends Controller
 
     public function getMe()
     {
+        $user = $this->user;
+        $user_info = [
+            'name' => $user->name,
+            'city' => $city->name,
+            'country' => $country->name,
+            'email' => $user->email,
+            'level' => $user->level,
+            'exp' => $user->exp,
+            'avatar' => url($user->avatar),
+            'followings_count' => $user->following_count,
+            'followers_count' => $user->followers_count,
+
+        ];
+        return api(['user_info' => $user_info]);
 
     }
 

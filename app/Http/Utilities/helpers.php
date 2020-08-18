@@ -725,7 +725,7 @@ function mongo($project)
 
 function getCity($lat, $long)
 {
-    $key = 'AIzaSyCB46xbCQC7Qp3bfG87hZS7iRr7WxpKavg';
+    $key = 'AIzaSyBqJ0On3JH027V8JUOSsgqHOStRJMqVf0g';
     $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&key=$key&sensor=true";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -743,7 +743,7 @@ function getCity($lat, $long)
 
 
     $result = json_decode(json_encode($result, TRUE));
-
+    dd($result);
     foreach (json_decode($result)->results as $result) {
         foreach ($result->address_components as $address_component) {
             if (in_array('locality', $address_component->types, TRUE)) {
@@ -963,7 +963,7 @@ function upImage($file, $path, $thumbnail = FALSE, $name = NULL)
 
     }
 
-    $name = $name ?? Str::uuid() . '.' . $photo_from_request->getClientOriginalExtension();
+    $name = $name ?? (Str::uuid() . '.' . $photo_from_request->getClientOriginalExtension());
 
 
     $original = $path . $name;

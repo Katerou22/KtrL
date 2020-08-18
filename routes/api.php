@@ -24,6 +24,7 @@ Route::prefix('countries')->group(function () {
 
 
 Route::middleware('auth:api')->group(function () {
+    Route::get('getMe', 'UserController@getMe');
     Route::get('follow/{type}/{id}', 'UserController@toggleFollow');
     Route::get('like/{type}/{id}', 'UserController@toggleLike');
     Route::get('bucket', 'UserController@addToBucket');
