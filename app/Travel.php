@@ -14,4 +14,9 @@ class Travel extends Eloquent
         'destinations',
         'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
