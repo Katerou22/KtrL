@@ -58,6 +58,8 @@ class AuthController extends Controller
                     'name' => $user->name,
                     'city' => $user->city->name,
                     'country' => $user->country->name,
+                    'travel_id' => optional($user->travels()->where('finished', false)->last())->id,
+
                     'email' => $user->email,
                     'level' => $user->level,
                     'exp' => $user->exp,
@@ -155,6 +157,8 @@ class AuthController extends Controller
             'name' => $user->name,
             'city' => $city->name,
             'country' => $country->name,
+            'travel_id' => optional($user->travels()->where('finished', false)->last())->id,
+
             'email' => $user->email,
             'level' => $user->level,
             'exp' => $user->exp,
