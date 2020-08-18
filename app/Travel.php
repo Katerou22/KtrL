@@ -12,8 +12,10 @@ class Travel extends Eloquent
         'ended_at',
         'description',
         'destinations',
-        'user_id'
+        'user_id',
+        'finished',
     ];
+    protected $dates = ['started_at', 'ended_at'];
 
     public function user()
     {
