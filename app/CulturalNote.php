@@ -1,21 +1,25 @@
 <?php
 
-	namespace App;
+namespace App;
 
-	use App\Http\Utilities\Likable;
-	use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use App\Http\Utilities\Likable;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-	class CulturalNote extends Eloquent {
-		use Likable;
-		protected $fillable = [
-			'title', 'description', 'country_code', 'user_id','followers_count','likes_count'
-		];
+class CulturalNote extends Eloquent
+{
+    use Likable;
 
-		public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
-			return $this->belongsTo(Country::class, 'country_code', 'code');
-		}
+    protected $fillable = [
+        'title', 'description', 'country_code', 'user_id', 'followers_count', 'likes_count', 'travel_id'
+    ];
 
-		public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
-			return $this->belongsTo(User::class, 'user_id');
-		}
-	}
+    public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'country_code', 'code');
+    }
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+}
