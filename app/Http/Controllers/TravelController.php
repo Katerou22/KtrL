@@ -42,4 +42,36 @@ class TravelController extends Controller
         return api(['travel' => new TravelResource($travel)]);
 
     }
+
+    public function update(Request $request, Travel $travel)
+    {
+        if ($this->user->id === $travel->user_id) {
+            $travel->update([
+                'title' => $request->title,
+                'started_at' => new UTCDateTime($request->started_at),
+                'ended_at' => $request->ended_at === null ?: new UTCDateTime($request->ended_at),
+                'description' => $request->description,
+                'finished' => false,]);
+
+        }
+        return api(['travel' => new TravelResource($travel)]);
+
+    }
+
+
+//
+//    public function update(Request $request, Travel $travel)
+//    {
+//        if ($this->user->id === $travel->user_id) {
+//            $travel->update([
+//                'title' => $request->title,
+//                'started_at' => new UTCDateTime($request->started_at),
+//                'ended_at' => $request->ended_at === null ?: new UTCDateTime($request->ended_at),
+//                'description' => $request->description,
+//                'finished' => false,]);
+//
+//        }
+//        return api(['travel' => new TravelResource($travel)]);
+//
+//    }
 }

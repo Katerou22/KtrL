@@ -55,6 +55,7 @@ Route::middleware('auth:api')->group(function () {
 
         Route::prefix('{travel}')->group(function () {
             Route::get('/', 'TravelController@get');
+            Route::post('/update', 'TravelController@post');
 
 //            Route::prefix('add')->group(function () {
 //
