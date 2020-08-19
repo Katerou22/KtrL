@@ -18,8 +18,8 @@ class TravelResource extends JsonResource
         return [
             'id' => $this->_id,
             'title' => $this->title,
-            'started_at' => $this->started_at,
-            'ended_at' => $this->ended_at,
+            'started_at' => $this->started_at->timestamp,
+            'ended_at' => $this->ended_at->timestamp,
             'description' => $this->description,
             'destinations' => $this->destinations
         ];

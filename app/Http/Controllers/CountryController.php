@@ -41,10 +41,54 @@ class CountryController extends Controller
     public function getCountryChild(Country $country, $model, Request $request)
     {
         $models = [
-            'notToMisses' => ['likes_count', 'created_at', 'title'],
-            'culturalNotes' => ['likes_count', 'created_at', 'title'],
-            'languageTips' => ['likes_count', 'created_at', 'language'],
-            'cities' => ['likes_count', 'created_at', 'name'],
+            'notToMisses' => [[
+                'title' => 'By likes count',
+                'type' => 'likes_count',
+            ],
+                [
+                    'title' => 'By date they created.',
+                    'type' => 'created_at'
+                ],
+                [
+                    'title' => 'By their title, alphabetical',
+                    'type' => 'title'
+                ]],
+            'culturalNotes' => [[
+                'title' => 'By likes count',
+                'type' => 'likes_count',
+            ],
+                [
+                    'title' => 'By date they created.',
+                    'type' => 'created_at'
+                ],
+                [
+                    'title' => 'By their title, alphabetical',
+                    'type' => 'title'
+                ]],
+            'languageTips' => [[
+                'title' => 'By likes count',
+                'type' => 'likes_count',
+            ],
+                [
+                    'title' => 'By date they created.',
+                    'type' => 'created_at'
+                ],
+                [
+                    'title' => 'By their language, alphabetical',
+                    'type' => 'language'
+                ]],
+            'cities' => [[
+                'title' => 'By likes count',
+                'type' => 'likes_count',
+            ],
+                [
+                    'title' => 'By date they created.',
+                    'type' => 'created_at'
+                ],
+                [
+                    'title' => 'By their name, alphabetical',
+                    'type' => 'name'
+                ]],
         ];
 
         if (!array_key_exists($model, $models)) {
@@ -96,11 +140,8 @@ class CountryController extends Controller
             'pronunciation' => 'required|string',
             'language' => 'required|string',
         ]);
-        $country_lang = collect($country->languages)->map(function ($l) {
 
-            return $l['code'];
-        });
-        if (!in_array($request->langauge, $country_lang->toArray(), TRUE)) {
+        if (!in_array($request->langauge, $country->languages, TRUE)) {
             return error('Wrong Language Selected');
         }
 

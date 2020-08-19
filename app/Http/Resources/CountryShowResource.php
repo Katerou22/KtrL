@@ -38,7 +38,7 @@
 			if ($culturalNoteResource->count() > 0) {
 				$data[] = [
 					'title' => 'Cultural Note',
-					'type'  => 'culturalNote',
+					'type'  => 'culturalNoteList',
 					'model' => $culturalNoteResource,
 				];
 			}
