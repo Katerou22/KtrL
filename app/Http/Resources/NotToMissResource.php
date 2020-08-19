@@ -18,6 +18,7 @@
 			return [
 				'id'          => $this->id,
 				'title'       => $this->title,
+				'type'       => $this->type,
 				'user'        => new UserResource($this->user),
 				'photo'       => url($this->photo),
 				'likes_count' => $this->likes_count,

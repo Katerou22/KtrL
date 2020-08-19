@@ -55,7 +55,7 @@ class User extends Authenticatable
         return $this->embedsMany(Follow::class, 'followings');
     }
 
-    public function travles()
+    public function travels()
     {
         return $this->hasMany(Travel::class);
     }
