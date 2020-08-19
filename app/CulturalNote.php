@@ -10,7 +10,7 @@ class CulturalNote extends Eloquent
     use Likable;
 
     protected $fillable = [
-        'title', 'description', 'country_code', 'user_id', 'followers_count', 'likes_count', 'travel_id'
+        'title', 'description', 'country_code', 'user_id', 'followers_count', 'likes_count', 'travel_id', 'city_id'
     ];
 
     public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo

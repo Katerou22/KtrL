@@ -1468,7 +1468,8 @@ Route::any('/tester', function (\Illuminate\Http\Request $request) {
 });
 
 
-Route::get('/country', function (\Illuminate\Http\Request $request) {
+Route::get('/country/{user}/{test}', function (\Illuminate\Http\Request $request) {
+    dd($request->route()->parameters);
     return api(\App\Travel::first());
     dd(getCity('35.6892', '51.3890'));
     dd(\Illuminate\Support\Str::studly('notToMiss'));
