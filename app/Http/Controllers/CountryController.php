@@ -95,6 +95,8 @@ class CountryController extends Controller
             abort(404);
         }
         $sorts = $models[$model];
+
+        dd($sorts);
         $sort = $sorts[0];
         $relationName = \Str::snake($model);
         $resourceName = 'App\Http\Resources\\' . \Str::singular(\Str::studly($relationName)) . 'Resource';
