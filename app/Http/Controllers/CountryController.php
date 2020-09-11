@@ -96,7 +96,7 @@ class CountryController extends Controller
         }
         $sorts = $models[$model];
 
-        $sort = $sorts[0];
+        $sort = $sorts[0]['type'];
         $relationName = \Str::snake($model);
         $resourceName = 'App\Http\Resources\\' . \Str::singular(\Str::studly($relationName)) . 'Resource';
 
@@ -108,7 +108,6 @@ class CountryController extends Controller
             }
         }
 
-        dd($sort);
         $data = $country->$relationName()->orderBy($sort)->paginate(10);
         $resource = $resourceName::collection($data)->additional(['sorts' => $sorts, 'sorted_by' => $sort]);
         return api($resource);
